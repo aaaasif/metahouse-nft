@@ -1,12 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Info } from "../../components";
-import { approveHPT, handleGetInitialData, unStake, stake, approvesHPT } from "../../utils/stake";
+
+import { Button } from "../../components";
+import {
+  approveHPT,
+  handleGetInitialData,
+  unStake,
+  stake,
+  approvesHPT,
+  claim,
+} from "../../utils/stake";
+import loader from "../../assets/icons/loader.png";
 
 interface InitialProps {
   stakedBalance: string;
   unstakedBalance: string;
   stakeApproved: boolean;
   unstakeApproved: boolean;
+  pendingAmount: string;
 }
 
 const DoStake: React.FC = () => {
@@ -57,6 +67,14 @@ const DoStake: React.FC = () => {
       await stake(String(deposit));
 
       window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClaim = async () => {
+    try {
+      await claim();
     } catch (error) {
       console.log(error);
     }
@@ -114,12 +132,6 @@ const DoStake: React.FC = () => {
         <>
           {isStake ? renderStake : renderUnstake}
           <div className="stake_content_wrapper">
-            <div className="stake_content_wrapper-switch">
-              <span>sHPT</span>
-              <p>
-                <span>gHPT</span> <Info />
-              </p>
-            </div>
             <div className="stake_content_wrapper-block_one">
               <div>
                 <b>Unstaked Balance</b>
@@ -132,21 +144,31 @@ const DoStake: React.FC = () => {
             </div>
             <div className="stake_content_wrapper-block_two">
               <div>
-                <b>Next Reward Amount</b>
-                <b>0.0000 sHPT</b>
+                <b>Pending Reward Amount</b>
+                <b>{initialState?.pendingAmount} sHPT</b>
               </div>
               <div>
+                <b></b>
+                <Button onClick={() => handleClaim()}>Claim</Button>
+              </div>
+              {/* <div>
                 <b>Next Reward Yield</b>
                 <b>0.0000 sHPT</b>
               </div>
               <div>
                 <b>ROI (5-Day Rate)</b>
                 <b>0.0000 sHPT</b>
-              </div>
+              </div> */}
             </div>
           </div>
         </>
-      ) : null}
+      ) : (
+        <div style={{ height: 150 }}>
+          <div className="loader">
+            <img src={loader} alt="loader" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

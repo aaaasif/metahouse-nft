@@ -100,3 +100,24 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.loader {
+  display: grid;
+  place-items: center;
+  height: inherit;
+
+  img {
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
