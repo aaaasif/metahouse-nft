@@ -1,11 +1,14 @@
 import { useWeb3React } from "@web3-react/core";
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "../../components";
+import { WalletConnetContext } from "../../store/context/WalletConnetContext";
 import DoStake from "./DoStake";
 import "./Stake.scss";
 
 const Stake: React.FC = () => {
   const { active } = useWeb3React();
+  const { handleConnect, handleSwitchNetwork, loading, wrongNetwork } =
+    useContext(WalletConnetContext);
 
   const renderContent = (
     <div className="stake_wrapper_header">
@@ -32,7 +35,15 @@ const Stake: React.FC = () => {
 
   const renderConnectWallet = (
     <div className="stake_wrapper-connect_wallet">
-      <Button>Connect Wallet</Button>
+      {wrongNetwork ? (
+        <Button disabled={loading} variant="error" onClick={() => handleSwitchNetwork()}>
+          Wrong Network
+        </Button>
+      ) : (
+        <Button disabled={loading} onClick={() => handleConnect()}>
+          Connect Wallet
+        </Button>
+      )}
       <span>Connect your wallet to stake OHM </span>
     </div>
   );

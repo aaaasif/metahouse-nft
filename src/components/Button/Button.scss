@@ -25,3 +25,21 @@
     font-weight: 500;
   }
 }
+
+.error_btn {
+  outline: none;
+  border: none;
+  background: tomato;
+  border-radius: 3px;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 10px;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  color: var(--text-primary);
+  font-family: var(--font-bold);
+  font-weight: 500;
+}
