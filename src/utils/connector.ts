@@ -2,7 +2,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import Web3 from "web3";
 
 export const Injected = new InjectedConnector({
-  supportedChainIds: [1, 2, 3, 4],
+  supportedChainIds: [3],
 });
 
 export const switchNetwork = async (chainId = 3) => {
