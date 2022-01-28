@@ -89,7 +89,7 @@ const allowedHPT = async () => {
   const allowance = Number(
     Web3.utils.fromWei(
       await HPT_Contract.methods
-        .allowance(window.ethereum.selectedAddress)
+        .allowance(window.ethereum.selectedAddress, HPTStaking_Address)
         .call()
     )
   );
@@ -105,7 +105,7 @@ const allowedsHPT = async () => {
   const allowance = Number(
     Web3.utils.fromWei(
       await sHPT_Contract.methods
-        .allowance(window.ethereum.selectedAddress)
+        .allowance(window.ethereum.selectedAddress, HPTStaking_Address)
         .call()
     )
   );
