@@ -13,7 +13,7 @@ const Dashboard: React.FC = () => {
             </p>
             <p>
               <span>Circulating Supply (total)</span>
-              <b></b>
+              <b>566,048,23</b>
             </p>
           </div>
           <div>

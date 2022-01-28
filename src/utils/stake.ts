@@ -60,14 +60,17 @@ const APY = async () => {
 // };
 
 // const pendingRewards = async () => {
-//   const pending = await HPTStaking_Contract.methods.pendingRewards(ethereum.selectedAddress).call();
+//   const pendingAmount = await HPTStaking_Contract.methods
+//     .pendingRewards(ethereum.selectedAddress)
+//     .call();
+//   return pendingAmount;
 // };
 
-// const claim = async () => {
-//   return await HPTStaking_Contract.methods
-//     .claim(ethereum.selectedAddress)
-//     .send({ from: ethereum.selectedAddress });
-// };
+export const claim = async () => {
+  return await HPTStaking_Contract.methods
+    .claim(ethereum.selectedAddress)
+    .send({ from: ethereum.selectedAddress });
+};
 
 // const totalSupply = async () => {
 //   return await HPT_Contract.methods.totalSupply().call();
@@ -107,12 +110,14 @@ export const handleGetInitialData = async () => {
     const stakedBalance = await sHPTBalance();
     const stakeApproved = await allowedHPT();
     const unstakeApproved = await allowedsHPT();
+    // console.log(await pendingRewards());
 
     return {
       stakedBalance,
       unstakedBalance,
       stakeApproved,
       unstakeApproved,
+      pendingAmount: "0",
     };
   } catch (error) {
     console.log(error);
@@ -122,7 +127,6 @@ export const handleGetInitialData = async () => {
 export const getSingleStake = async () => {
   try {
     const apy = await APY();
-
     return {
       apy,
     };
