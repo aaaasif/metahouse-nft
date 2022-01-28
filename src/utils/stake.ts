@@ -4,9 +4,9 @@ import HPT from "./abis/HPT.json";
 import sHPT from "./abis/sHPT.json";
 import HPTStaking from "./abis/HPTStaking.json";
 
-const HPT_Address = "0x6BE7A3C44825F6E073EB80B95B7d116b6931f99d";
-const sHPT_Address = "0xC0A46321280711BF46Dbc8aBBB08589e589e8b22";
-const HPTStaking_Address = "0x26C8b3437a12e31Eb9faABa8cc874aE94a69eFFD";
+const HPT_Address = "0xfD8C324679632FEc09c668890494B3695258fA2f";
+const sHPT_Address = "0x604f0483b0Fa10411d2a387C34d5777876e053A6";
+const HPTStaking_Address = "0x9710e7Fc391Db3848a6A8324E13CaAebD753c029";
 
 const { ethereum } = window as any;
 
@@ -14,25 +14,36 @@ const web3 = new Web3(ethereum);
 
 const HPT_Contract = new web3.eth.Contract(HPT as AbiItem[], HPT_Address);
 const sHPT_Contract = new web3.eth.Contract(sHPT as AbiItem[], sHPT_Address);
-const HPTStaking_Contract = new web3.eth.Contract(HPTStaking as AbiItem[], HPTStaking_Address);
+const HPTStaking_Contract = new web3.eth.Contract(
+  HPTStaking as AbiItem[],
+  HPTStaking_Address
+);
 
 const HPTBalance = async () => {
-  return Web3.utils.fromWei(await HPT_Contract.methods.balanceOf(ethereum.selectedAddress).call());
+  return Web3.utils.fromWei(
+    await HPT_Contract.methods.balanceOf(ethereum.selectedAddress).call()
+  );
 };
 
 const sHPTBalance = async () => {
-  return Web3.utils.fromWei(await sHPT_Contract.methods.balanceOf(ethereum.selectedAddress).call());
+  return Web3.utils.fromWei(
+    await sHPT_Contract.methods.balanceOf(ethereum.selectedAddress).call()
+  );
 };
 
 export const approveHPT = async () => {
-  const balance = await HPT_Contract.methods.balanceOf(ethereum.selectedAddress).call();
+  const balance = await HPT_Contract.methods
+    .balanceOf(ethereum.selectedAddress)
+    .call();
   return await HPT_Contract.methods
     .approve(HPTStaking_Address, balance)
     .send({ from: ethereum.selectedAddress });
 };
 
 export const approvesHPT = async () => {
-  const balance = await sHPT_Contract.methods.balanceOf(ethereum.selectedAddress).call();
+  const balance = await sHPT_Contract.methods
+    .balanceOf(ethereum.selectedAddress)
+    .call();
   return await sHPT_Contract.methods
     .approve(HPTStaking_Address, balance)
     .send({ from: ethereum.selectedAddress });
@@ -41,17 +52,25 @@ export const approvesHPT = async () => {
 export const stake = async (_amount: string) => {
   const amount = Web3.utils.toWei(_amount).toString();
 
-  return await HPTStaking_Contract.methods.stake(amount).send({ from: ethereum.selectedAddress });
+  return await HPTStaking_Contract.methods
+    .stake(amount)
+    .send({ from: ethereum.selectedAddress });
 };
 
 export const unStake = async (_amount: string) => {
   const amount = Web3.utils.toWei(_amount).toString();
 
-  return await HPTStaking_Contract.methods.unstake(amount).send({ from: ethereum.selectedAddress });
+  return await HPTStaking_Contract.methods
+    .unstake(amount)
+    .send({ from: ethereum.selectedAddress });
 };
 
 const APY = async () => {
   return String(await HPTStaking_Contract.methods.FixedAPY().call());
+};
+
+const totalAmountStaked = async () => {
+  return String(await sHPT_Contract.methods.totalSupply().call());
 };
 
 // const stakedAmount = async () => {
@@ -76,7 +95,9 @@ const APY = async () => {
 const allowedHPT = async () => {
   const allowance = Number(
     Web3.utils.fromWei(
-      await HPT_Contract.methods.allowance(ethereum.selectedAddress, HPTStaking_Address).call()
+      await HPT_Contract.methods
+        .allowance(ethereum.selectedAddress, HPTStaking_Address)
+        .call()
     )
   );
 
@@ -90,7 +111,9 @@ const allowedHPT = async () => {
 const allowedsHPT = async () => {
   const allowance = Number(
     Web3.utils.fromWei(
-      await sHPT_Contract.methods.allowance(ethereum.selectedAddress, HPTStaking_Address).call()
+      await sHPT_Contract.methods
+        .allowance(ethereum.selectedAddress, HPTStaking_Address)
+        .call()
     )
   );
 
