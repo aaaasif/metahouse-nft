@@ -84,3 +84,35 @@ const claim = async () => {
 const totalSupply = async () => {
   return await HPT_Contract.methods.totalSupply().call();
 };
+
+const allowedHPT = async () => {
+  const allowance = Number(
+    Web3.utils.fromWei(
+      await HPT_Contract.methods
+        .allowance(window.ethereum.selectedAddress)
+        .call()
+    )
+  );
+
+  if (allowance > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const allowedsHPT = async () => {
+  const allowance = Number(
+    Web3.utils.fromWei(
+      await sHPT_Contract.methods
+        .allowance(window.ethereum.selectedAddress)
+        .call()
+    )
+  );
+
+  if (allowance > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
