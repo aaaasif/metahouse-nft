@@ -9,31 +9,31 @@ const Dashboard: React.FC = () => {
           <div>
             <p>
               <span>Market Cap</span>
-              <b>$566,048,235</b>
+              <b>-</b>
             </p>
             <p>
               <span>Circulating Supply (total)</span>
-              <b>566,048,23</b>
+              <b>-</b>
             </p>
           </div>
           <div>
             <p>
               <span>OHM Price</span>
-              <b>$566,048,235</b>
+              <b>-</b>
             </p>
             <p>
               <span>Backing per OHM</span>
-              <b>$566,048,235</b>
+              <b>-</b>
             </p>
           </div>
           <div>
             <p>
               <span>gOHM Price</span>
-              <b>$566,048,235</b>
+              <b>-</b>
             </p>
             <p>
               <span>Current Index</span>
-              <b>71.07 sOHM</b>
+              <b>-</b>
             </p>
           </div>
         </div>

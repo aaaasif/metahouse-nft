@@ -70,8 +70,10 @@ const APY = async () => {
   return String(await HPTStaking_Contract.methods.FixedAPY().call());
 };
 
-const totalAmountStaked = async () => {
-  return String(await sHPT_Contract.methods.totalSupply().call());
+export const totalAmountStaked = async () => {
+  return String(
+    Web3.utils.fromWei(await sHPT_Contract.methods.totalSupply().call())
+  );
 };
 
 // const stakedAmount = async () => {
@@ -79,12 +81,14 @@ const totalAmountStaked = async () => {
 //   return info[0];
 // };
 
-// const pendingRewards = async () => {
-//   const pendingAmount = await HPTStaking_Contract.methods
-//     .pendingRewards(ethereum.selectedAddress)
-//     .call();
-//   return pendingAmount;
-// };
+const pendingRewards = async () => {
+  const pendingAmount = Web3.utils.fromWei(
+    await HPTStaking_Contract.methods
+      .pendingRewards(ethereum.selectedAddress)
+      .call()
+  );
+  return pendingAmount;
+};
 
 export const claim = async () => {
   return await HPTStaking_Contract.methods
@@ -134,14 +138,14 @@ export const handleGetInitialData = async () => {
     const stakedBalance = await sHPTBalance();
     const stakeApproved = await allowedHPT();
     const unstakeApproved = await allowedsHPT();
-    // console.log(await pendingRewards());
+    const pendingAmount = await pendingRewards();
 
     return {
       stakedBalance,
       unstakedBalance,
       stakeApproved,
       unstakeApproved,
-      pendingAmount: "0",
+      pendingAmount,
     };
   } catch (error) {
     console.log(error);

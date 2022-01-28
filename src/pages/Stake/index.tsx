@@ -2,9 +2,10 @@ import { useWeb3React } from "@web3-react/core";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Button } from "../../components";
 import { WalletConnetContext } from "../../store/context/WalletConnetContext";
-import { getSingleStake } from "../../utils/stake";
+import { getSingleStake, totalAmountStaked } from "../../utils/stake";
 import DoStake from "./DoStake";
 import "./Stake.scss";
+import Web3 from "web3";
 
 interface StakeDataProps {
   apy: string;
@@ -12,12 +13,15 @@ interface StakeDataProps {
 
 const Stake: React.FC = () => {
   const { active } = useWeb3React();
+  const [staked, setStaked] = useState<String>();
   const [stakeData, setSingleStake] = useState<StakeDataProps | null>(null);
   const { handleConnect, handleSwitchNetwork, loading, wrongNetwork } =
     useContext(WalletConnetContext);
 
   const handleGetData = useCallback(async () => {
     try {
+      setStaked(await totalAmountStaked());
+      console.log(staked);
       const data = await getSingleStake();
       console.log(data);
       if (data) setSingleStake(data);
@@ -33,8 +37,8 @@ const Stake: React.FC = () => {
   const renderContent = (
     <div className="stake_wrapper_header">
       <div className="stake_wrapper_header-title">
-        <h3>Single Stake(3,3)</h3>
-        <span>45 mins to next rebase</span>
+        <h3>Single Stake(1,1)</h3>
+        <span></span>
       </div>
       <div className="stake_wrapper_header-stats">
         <p>
@@ -42,12 +46,12 @@ const Stake: React.FC = () => {
           <b>{stakeData?.apy}%</b>
         </p>
         <p>
-          <span>Total Value Deposited</span>
-          <b>$513,882,004</b>
+          <span>Total HPT Deposited</span>
+          <b>{staked} HPT</b>
         </p>
         <p>
           <span>Current Index</span>
-          <b>71.2 sOHM</b>
+          <b>-</b>
         </p>
       </div>
     </div>
@@ -56,7 +60,11 @@ const Stake: React.FC = () => {
   const renderConnectWallet = (
     <div className="stake_wrapper-connect_wallet">
       {wrongNetwork ? (
-        <Button disabled={loading} variant="error" onClick={() => handleSwitchNetwork()}>
+        <Button
+          disabled={loading}
+          variant="error"
+          onClick={() => handleSwitchNetwork()}
+        >
           Wrong Network
         </Button>
       ) : (
