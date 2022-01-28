@@ -58,6 +58,7 @@ export const stake = async (_amount: string) => {
 };
 
 export const unStake = async (_amount: string) => {
+  console.log(_amount);
   const amount = Web3.utils.toWei(_amount).toString();
 
   return await HPTStaking_Contract.methods
