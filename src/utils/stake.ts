@@ -26,21 +26,25 @@ const sHPTBalance = async () => {
 
 export const approveHPT = async () => {
   const balance = await HPT_Contract.methods.balanceOf(ethereum.selectedAddress).call();
-  return await HPT_Contract.methods.approve(HPTStaking_Address, balance);
+  return await HPT_Contract.methods
+    .approve(HPTStaking_Address, balance)
+    .send({ from: ethereum.selectedAddress });
 };
 
 export const approvesHPT = async () => {
   const balance = await sHPT_Contract.methods.balanceOf(ethereum.selectedAddress).call();
-  return await sHPT_Contract.methods.approve(HPTStaking_Address, balance);
+  return await sHPT_Contract.methods
+    .approve(HPTStaking_Address, balance)
+    .send({ from: ethereum.selectedAddress });
 };
 
-export const stake = async (_amount) => {
+export const stake = async (_amount: string) => {
   const amount = Web3.utils.toWei(_amount).toString();
 
   return await HPTStaking_Contract.methods.stake(amount).send({ from: ethereum.selectedAddress });
 };
 
-export const unStake = async (_amount) => {
+export const unStake = async (_amount: string) => {
   const amount = Web3.utils.toWei(_amount).toString();
 
   return await HPTStaking_Contract.methods
@@ -105,14 +109,12 @@ export const handleGetInitialData = async () => {
     const unstakedBalance = await sHPTBalance();
     const stakeApproved = await allowedHPT();
     const unstakeApproved = await allowedsHPT();
-    const Apy = await APY();
 
     return {
       stakedBalance,
       unstakedBalance,
       stakeApproved,
       unstakeApproved,
-      Apy,
     };
   } catch (error) {
     console.log(error);
