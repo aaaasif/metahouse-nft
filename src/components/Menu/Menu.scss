@@ -1,0 +1,33 @@
+.menu {
+  background: var(--background);
+  padding: 1.875em 1.25em;
+  height: 100vh;
+  overflow-y: auto;
+
+  .menu_links {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1.875em;
+    margin-top: 1.25em;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      &.active {
+        span {
+          border-bottom: 1px solid var(--text-primary);
+        }
+      }
+
+      span {
+        margin-left: 10px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--text-primary);
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+}

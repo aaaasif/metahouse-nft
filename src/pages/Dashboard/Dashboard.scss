@@ -1,0 +1,20 @@
+.dashboard {
+  padding: 1.25em 0;
+
+  &_wrapper {
+    padding: 1.875em;
+    background: var(--background);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      grid-gap: 1.25em;
+      width: fit-content;
+      text-align: center;
+    }
+  }
+}

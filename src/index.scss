@@ -1,0 +1,102 @@
+@font-face {
+  font-family: "poppins-bold";
+  src: url(./assets/fonts/Poppins-Bold.ttf);
+}
+@font-face {
+  font-family: "poppins-medium";
+  src: url(./assets/fonts/Poppins-Medium.ttf);
+}
+@font-face {
+  font-family: "poppins-regular";
+  src: url(./assets/fonts/Poppins-Regular.ttf);
+}
+
+:root {
+  --text-primary: #e6e6e6;
+  --text-secondary: #c7c7c7;
+  --background: #203548;
+  --font-regular: "poppins-regular";
+  --font-medium: "poppins-medium";
+  --font-bold: "poppins-bold";
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--text-primary);
+  background: linear-gradient(180deg, #203548 0%, #c7c7c7 100%);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-medium);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: no-drop;
+  }
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 250px auto;
+
+  .page_wrapper {
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+.pad {
+  padding: 0 50px;
+}
+
+span {
+  font-size: 12px;
+  line-height: 18px;
+  color: #c7c7c7;
+  display: block;
+}
+
+b {
+  all: unset;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #e6e6e6;
+  font-family: var(--font-medium);
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 30px;
+  font-family: var(--font-bold);
+  color: #e6e6e6;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
