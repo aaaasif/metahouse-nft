@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Info } from "../../components";
+import { HPTBalance } from "../../utils/stake";
 
 let isApproved = false;
 
 const DoStake: React.FC = () => {
   const [isStake, setIsStake] = useState(true);
+
+  const handleGetData = useCallback(async () => {
+    try {
+      console.log(await HPTBalance());
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleGetData();
+  }, []);
 
   const renderStake = (
     <div className="form_wrapper">
