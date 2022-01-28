@@ -1,11 +1,12 @@
+import { useWeb3React } from "@web3-react/core";
 import React from "react";
 import { Button } from "../../components";
 import DoStake from "./DoStake";
 import "./Stake.scss";
 
-let active = true;
-
 const Stake: React.FC = () => {
+  const { active } = useWeb3React();
+
   const renderContent = (
     <div className="stake_wrapper_header">
       <div className="stake_wrapper_header-title">
