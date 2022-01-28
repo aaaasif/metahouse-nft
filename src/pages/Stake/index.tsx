@@ -1,14 +1,34 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Button } from "../../components";
 import { WalletConnetContext } from "../../store/context/WalletConnetContext";
+import { getSingleStake } from "../../utils/stake";
 import DoStake from "./DoStake";
 import "./Stake.scss";
 
+interface StakeDataProps {
+  apy: string;
+}
+
 const Stake: React.FC = () => {
   const { active } = useWeb3React();
+  const [stakeData, setSingleStake] = useState<StakeDataProps | null>(null);
   const { handleConnect, handleSwitchNetwork, loading, wrongNetwork } =
     useContext(WalletConnetContext);
+
+  const handleGetData = useCallback(async () => {
+    try {
+      const data = await getSingleStake();
+      console.log(data);
+      if (data) setSingleStake(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleGetData();
+  }, [handleGetData]);
 
   const renderContent = (
     <div className="stake_wrapper_header">
@@ -19,7 +39,7 @@ const Stake: React.FC = () => {
       <div className="stake_wrapper_header-stats">
         <p>
           <span>APY</span>
-          <b>2,668.6%</b>
+          <b>{stakeData?.apy}%</b>
         </p>
         <p>
           <span>Total Value Deposited</span>

@@ -83,7 +83,7 @@ const DoStake: React.FC = () => {
 
   const renderUnstake = (
     <div className="form_wrapper">
-      {!initialState?.stakeApproved ? (
+      {!initialState?.unstakeApproved ? (
         <div>
           <span>First time staking HPT? Please approve (A Dao) to use your HPT for staking.</span>
           <Button onClick={() => handleApprove(false)}>Approve</Button>
@@ -123,11 +123,11 @@ const DoStake: React.FC = () => {
             <div className="stake_content_wrapper-block_one">
               <div>
                 <b>Unstaked Balance</b>
-                <b>0.0000 HPT</b>
+                <b>{initialState?.unstakedBalance} HPT</b>
               </div>
               <div>
                 <b>Total Staked Balance</b>
-                <b>{initialState?.stakedBalance} HPT</b>
+                <b>{initialState?.stakedBalance} sHPT</b>
               </div>
             </div>
             <div className="stake_content_wrapper-block_two">

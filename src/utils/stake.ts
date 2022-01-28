@@ -47,15 +47,13 @@ export const stake = async (_amount: string) => {
 export const unStake = async (_amount: string) => {
   const amount = Web3.utils.toWei(_amount).toString();
 
-  return await HPTStaking_Contract.methods
-    .unstake(_amount)
-    .send({ from: ethereum.selectedAddress });
+  return await HPTStaking_Contract.methods.unstake(amount).send({ from: ethereum.selectedAddress });
 };
 
 const APY = async () => {
   return String(await HPTStaking_Contract.methods.FixedAPY().call());
 };
-//
+
 // const stakedAmount = async () => {
 //   const info = await HPTStaking_Contract.methods.info(ethereum.selectedAddress).call();
 //   return info[0];
@@ -105,8 +103,8 @@ const allowedsHPT = async () => {
 
 export const handleGetInitialData = async () => {
   try {
-    const stakedBalance = await HPTBalance();
-    const unstakedBalance = await sHPTBalance();
+    const unstakedBalance = await HPTBalance();
+    const stakedBalance = await sHPTBalance();
     const stakeApproved = await allowedHPT();
     const unstakeApproved = await allowedsHPT();
 
@@ -115,6 +113,18 @@ export const handleGetInitialData = async () => {
       unstakedBalance,
       stakeApproved,
       unstakeApproved,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getSingleStake = async () => {
+  try {
+    const apy = await APY();
+
+    return {
+      apy,
     };
   } catch (error) {
     console.log(error);
