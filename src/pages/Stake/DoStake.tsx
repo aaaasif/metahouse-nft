@@ -21,6 +21,7 @@ interface InitialProps {
 
 const DoStake: React.FC = () => {
   const [isStake, setIsStake] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [withdraw, setWithdraw] = useState(0);
   const [deposit, setDeposit] = useState(0);
   const [initialState, setInitialState] = useState<InitialProps | null>(null);
@@ -40,6 +41,7 @@ const DoStake: React.FC = () => {
   }, [handleGetData]);
 
   const handleApprove = async (stake: boolean) => {
+    setLoading(true);
     try {
       if (stake) {
         await approveHPT();
@@ -49,34 +51,45 @@ const DoStake: React.FC = () => {
       window.location.reload();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleWithdraw = async () => {
+    setLoading(true);
     try {
       await unStake(String(withdraw));
 
       window.location.reload();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeposit = async () => {
+    setLoading(true);
     try {
       await stake(String(deposit));
 
       window.location.reload();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleClaim = async () => {
+    setLoading(true);
     try {
       await claim();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -119,39 +132,40 @@ const DoStake: React.FC = () => {
   );
 
   return (
-    <div className="stake_container">
-      <div className="stake_container-header">
-        <p className={isStake ? "active" : "inactive"} onClick={() => setIsStake(true)}>
-          Stake
-        </p>
-        <p className={!isStake ? "active" : "inactive"} onClick={() => setIsStake(false)}>
-          Unstake
-        </p>
-      </div>
-      {initialState ? (
-        <>
-          {isStake ? renderStake : renderUnstake}
-          <div className="stake_content_wrapper">
-            <div className="stake_content_wrapper-block_one">
-              <div>
-                <b>Unstaked Balance</b>
-                <b>{initialState?.unstakedBalance} HPT</b>
+    <>
+      <div className="stake_container">
+        <div className="stake_container-header">
+          <p className={isStake ? "active" : "inactive"} onClick={() => setIsStake(true)}>
+            Stake
+          </p>
+          <p className={!isStake ? "active" : "inactive"} onClick={() => setIsStake(false)}>
+            Unstake
+          </p>
+        </div>
+        {initialState ? (
+          <>
+            {isStake ? renderStake : renderUnstake}
+            <div className="stake_content_wrapper">
+              <div className="stake_content_wrapper-block_one">
+                <div>
+                  <b>Unstaked Balance</b>
+                  <b>{initialState?.unstakedBalance} HPT</b>
+                </div>
+                <div>
+                  <b>Total Staked Balance</b>
+                  <b>{initialState?.stakedBalance} sHPT</b>
+                </div>
               </div>
-              <div>
-                <b>Total Staked Balance</b>
-                <b>{initialState?.stakedBalance} sHPT</b>
-              </div>
-            </div>
-            <div className="stake_content_wrapper-block_two">
-              <div>
-                <b>Pending Reward Amount</b>
-                <b>{initialState?.pendingAmount} sHPT</b>
-              </div>
-              <div>
-                <b></b>
-                <Button onClick={() => handleClaim()}>Claim</Button>
-              </div>
-              {/* <div>
+              <div className="stake_content_wrapper-block_two">
+                <div>
+                  <b>Pending Reward Amount</b>
+                  <b>{initialState?.pendingAmount} sHPT</b>
+                </div>
+                <div>
+                  <b></b>
+                  <Button onClick={() => handleClaim()}>Claim</Button>
+                </div>
+                {/* <div>
                 <b>Next Reward Yield</b>
                 <b>0.0000 sHPT</b>
               </div>
@@ -159,17 +173,23 @@ const DoStake: React.FC = () => {
                 <b>ROI (5-Day Rate)</b>
                 <b>0.0000 sHPT</b>
               </div> */}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div style={{ height: 150 }}>
+            <div className="loader">
+              <img src={loader} alt="loader" />
             </div>
           </div>
-        </>
-      ) : (
-        <div style={{ height: 150 }}>
-          <div className="loader">
-            <img src={loader} alt="loader" />
-          </div>
+        )}
+      </div>
+      <div className={loading ? "transaction_loader active" : "transaction_loader"}>
+        <div className="loader">
+          <img src={loader} alt="loader" />
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

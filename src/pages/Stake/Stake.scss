@@ -150,3 +150,25 @@
     }
   }
 }
+
+.transaction_loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  background-color: rgba(32, 53, 72, 0.3);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 300ms linear;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+}
