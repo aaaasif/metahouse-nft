@@ -3,4 +3,20 @@ header.header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  grid-gap: 1.5em;
+
+  .menu {
+    all: unset;
+    display: none;
+    cursor: pointer;
+
+    @media (max-width: 800px) {
+      display: flex;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }

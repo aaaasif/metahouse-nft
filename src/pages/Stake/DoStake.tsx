@@ -97,8 +97,12 @@ const DoStake: React.FC = () => {
     <div className="form_wrapper">
       {!initialState?.stakeApproved ? (
         <div>
-          <span>First time staking HPT? Please approve (A Dao) to use your HPT for staking.</span>
-          <Button onClick={() => handleApprove(true)}>Approve</Button>
+          <span style={{ textAlign: "center" }}>
+            First time staking HPT? Please approve (A Dao) to use your HPT for staking.
+          </span>
+          <Button disabled={loading} onClick={() => handleApprove(true)}>
+            Approve
+          </Button>
         </div>
       ) : (
         <div>
@@ -106,7 +110,9 @@ const DoStake: React.FC = () => {
             <input type="number" onChange={(e) => setDeposit(Number(e.target.value))} />
             <button>Max</button>
           </div>
-          <Button onClick={() => handleDeposit()}>Stake</Button>
+          <Button disabled={loading} onClick={() => handleDeposit()}>
+            Stake
+          </Button>
         </div>
       )}
     </div>
@@ -116,8 +122,12 @@ const DoStake: React.FC = () => {
     <div className="form_wrapper">
       {!initialState?.unstakeApproved ? (
         <div>
-          <span>First time staking HPT? Please approve (A Dao) to use your HPT for staking.</span>
-          <Button onClick={() => handleApprove(false)}>Approve</Button>
+          <span style={{ textAlign: "center" }}>
+            First time staking HPT? Please approve (A Dao) to use your HPT for staking.
+          </span>
+          <Button disabled={loading} onClick={() => handleApprove(false)}>
+            Approve
+          </Button>
         </div>
       ) : (
         <div>
@@ -125,7 +135,9 @@ const DoStake: React.FC = () => {
             <input type="number" onChange={(e) => setWithdraw(Number(e.target.value))} />
             <button>Max</button>
           </div>
-          <Button onClick={() => handleWithdraw()}>Unstake</Button>
+          <Button disabled={loading} onClick={() => handleWithdraw()}>
+            Unstake
+          </Button>
         </div>
       )}
     </div>
@@ -187,6 +199,7 @@ const DoStake: React.FC = () => {
       <div className={loading ? "transaction_loader active" : "transaction_loader"}>
         <div className="loader">
           <img src={loader} alt="loader" />
+          <p>Don't refresh your page</p>
         </div>
       </div>
     </>

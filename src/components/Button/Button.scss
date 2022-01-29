@@ -16,6 +16,11 @@
   font-family: var(--font-bold);
   font-weight: 500;
 
+  @media (max-width: 800px) {
+    padding: 6px 15px;
+    font-size: 12px;
+  }
+
   span {
     font-size: 14px;
     line-height: 22px;

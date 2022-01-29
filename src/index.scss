@@ -58,6 +58,10 @@ button {
   display: grid;
   grid-template-columns: 250px auto;
 
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+
   .page_wrapper {
     height: 100vh;
     overflow-y: auto;
@@ -66,6 +70,10 @@ button {
 
 .pad {
   padding: 0 50px;
+
+  @media (max-width: 800px) {
+    padding: 0 1.25em;
+  }
 }
 
 span {
@@ -102,9 +110,13 @@ input[type="number"] {
 }
 
 .loader {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   height: inherit;
+  grid-gap: 1.5em;
+  flex-direction: column;
 
   img {
     width: 50px;

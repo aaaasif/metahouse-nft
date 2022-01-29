@@ -6,3 +6,4 @@ export { default as Stake } from "./Stake";
 export { default as Whitepaper } from "./Whitepaper";
 export { default as Wallet } from "./Wallet";
 export { default as Info } from "./Info";
+export { default as Logout } from "./Logout";

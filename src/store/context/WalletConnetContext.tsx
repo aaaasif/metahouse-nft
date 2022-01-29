@@ -5,13 +5,17 @@ import { Injected, switchNetwork } from "../../utils/connector";
 export type WalletConnectProps = {
   loading: boolean;
   wrongNetwork: boolean;
+  sidebar: boolean;
   handleConnect: () => void;
   handleSwitchNetwork: () => void;
+  setSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const initialState: WalletConnectProps = {
   loading: false,
   wrongNetwork: false,
+  sidebar: false,
+  setSidebar: () => {},
   handleConnect: () => {},
   handleSwitchNetwork: () => {},
 };
@@ -21,6 +25,7 @@ export const WalletConnetContext = createContext<WalletConnectProps>(initialStat
 const WalletConnetProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [wrongNetwork, setWrongNetwork] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
   const { activate, error } = useWeb3React();
 
   const handleError = useCallback(() => {
@@ -50,7 +55,7 @@ const WalletConnetProvider: React.FC = ({ children }) => {
 
   return (
     <WalletConnetContext.Provider
-      value={{ loading, handleConnect, wrongNetwork, handleSwitchNetwork }}
+      value={{ loading, handleConnect, wrongNetwork, handleSwitchNetwork, sidebar, setSidebar }}
     >
       {children}
     </WalletConnetContext.Provider>

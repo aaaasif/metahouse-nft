@@ -8,6 +8,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    grid-gap: 1.5em;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
 
     > div {
       display: flex;
@@ -15,6 +20,12 @@
       grid-gap: 1.25em;
       width: fit-content;
       text-align: center;
+
+      @media (max-width: 600px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+      }
     }
   }
 }
