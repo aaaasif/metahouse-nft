@@ -5,7 +5,6 @@ import { WalletConnetContext } from "../../store/context/WalletConnetContext";
 import { getSingleStake, totalAmountStaked } from "../../utils/stake";
 import DoStake from "./DoStake";
 import "./Stake.scss";
-import Web3 from "web3";
 
 interface StakeDataProps {
   apy: string;
@@ -28,7 +27,7 @@ const Stake: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [staked]);
 
   useEffect(() => {
     handleGetData();
@@ -60,11 +59,7 @@ const Stake: React.FC = () => {
   const renderConnectWallet = (
     <div className="stake_wrapper-connect_wallet">
       {wrongNetwork ? (
-        <Button
-          disabled={loading}
-          variant="error"
-          onClick={() => handleSwitchNetwork()}
-        >
+        <Button disabled={loading} variant="error" onClick={() => handleSwitchNetwork()}>
           Wrong Network
         </Button>
       ) : (
