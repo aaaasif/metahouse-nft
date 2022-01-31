@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p>
-              <span>gHPT Price</span>
+              <span>sHPT Price</span>
               <b>-</b>
             </p>
             <p>
