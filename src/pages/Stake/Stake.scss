@@ -85,6 +85,29 @@
 
     .form_wrapper {
       margin-bottom: 1.875em;
+      position: relative;
+
+      .toaster {
+        position: absolute;
+        bottom: 110%;
+        right: 0;
+        font-size: 12px;
+        line-height: 18px;
+        background-color: #fff;
+        border-radius: 10px;
+        color: var(--background);
+        padding: 2px 5px;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 300ms linear;
+
+        &.active {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+
       > div {
         display: flex;
         align-items: center;

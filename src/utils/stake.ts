@@ -4,9 +4,9 @@ import HPT from "./abis/HPT.json";
 import sHPT from "./abis/sHPT.json";
 import HPTStaking from "./abis/HPTStaking.json";
 
-const HPT_Address = "0xfD8C324679632FEc09c668890494B3695258fA2f";
-const sHPT_Address = "0x604f0483b0Fa10411d2a387C34d5777876e053A6";
-const HPTStaking_Address = "0x9710e7Fc391Db3848a6A8324E13CaAebD753c029";
+const HPT_Address = "0xf03A1195FC63BB6b6Bb12aFA547FB9b77f16A550";
+const sHPT_Address = "0xf4DA6CBE6ACEdEbAE3883fB58DA2937F19785033";
+const HPTStaking_Address = "0x1c2ccB26d55DBd3c214296a496fb26F0f8e4CC09";
 
 const { ethereum } = window as any;
 
@@ -61,6 +61,7 @@ export const stake = async (_amount: string) => {
   );
 
   if (allowance >= Web3.utils.toBN(_amount)) {
+    console.log(allowance.toString(), _amount);
     return await HPTStaking_Contract.methods
       .stake(amount)
       .send({ from: ethereum.selectedAddress });
@@ -144,6 +145,12 @@ const allowedsHPT = async () => {
   }
 };
 
+const getUnstakeLimit = async () => {
+  return Web3.utils.fromWei(
+    await HPTStaking_Contract.methods.UnStakeLimit().call()
+  );
+};
+
 export const handleGetInitialData = async () => {
   try {
     const unstakedBalance = await HPTBalance();
@@ -151,6 +158,7 @@ export const handleGetInitialData = async () => {
     const stakeApproved = await allowedHPT();
     const unstakeApproved = await allowedsHPT();
     const pendingAmount = await pendingRewards();
+    const unstakeLimit = await getUnstakeLimit();
 
     return {
       stakedBalance,
@@ -158,6 +166,7 @@ export const handleGetInitialData = async () => {
       stakeApproved,
       unstakeApproved,
       pendingAmount,
+      unstakeLimit: Number(unstakeLimit),
     };
   } catch (error) {
     console.log(error);

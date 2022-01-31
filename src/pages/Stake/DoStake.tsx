@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../components";
 import {
@@ -12,6 +12,7 @@ import {
 
 import loader from "../../assets/icons/loader.png";
 import error from "../../assets/icons/error.svg";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface InitialProps {
   stakedBalance: string;
@@ -19,21 +20,45 @@ interface InitialProps {
   stakeApproved: boolean;
   unstakeApproved: boolean;
   pendingAmount: string;
+  unstakeLimit: number;
 }
 
 const DoStake: React.FC = () => {
   const [isStake, setIsStake] = useState(true);
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
+  const [toaster, setToaster] = useState(false);
+  const [unstakeMaxDisable, setUnstakeMaxDisable] = useState(false);
   const [withdraw, setWithdraw] = useState(0);
   const [deposit, setDeposit] = useState(0);
   const [initialState, setInitialState] = useState<InitialProps | null>(null);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchParams.get("method") === "unstake") setIsStake(false);
+    else setIsStake(true);
+  }, [isStake, searchParams]);
+
+  useMemo(() => {
+    if (initialState) {
+      if (withdraw > initialState?.unstakeLimit) setUnstakeMaxDisable(true);
+      else setUnstakeMaxDisable(false);
+    } else setUnstakeMaxDisable(true);
+  }, [withdraw, initialState]);
 
   const handleGetData = useCallback(async () => {
     try {
       const data = await handleGetInitialData();
       console.log(data);
-      if (data) setInitialState(data);
+      if (data) {
+        setInitialState(data);
+        if (
+          Number(data.unstakedBalance) <= 0 &&
+          Number(data.stakedBalance) <= 0
+        )
+          setModal(true);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +88,6 @@ const DoStake: React.FC = () => {
     setLoading(true);
     try {
       await unStake(String(withdraw));
-
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -73,14 +97,9 @@ const DoStake: React.FC = () => {
   };
 
   const handleDeposit = async () => {
-    if (Number(initialState?.unstakedBalance) <= 0) {
-      setModal(true);
-      return;
-    }
     setLoading(true);
     try {
       await stake(String(deposit));
-
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -93,6 +112,7 @@ const DoStake: React.FC = () => {
     setLoading(true);
     try {
       await claim();
+      window.location.reload();
     } catch (error) {
       console.log(error);
     } finally {
@@ -117,11 +137,13 @@ const DoStake: React.FC = () => {
           <div className="form_input">
             <input
               type="number"
-              value={deposit}
+              value={deposit === 0 ? "" : deposit}
               onChange={(e) => setDeposit(Number(e.target.value))}
             />
             <button
-              onClick={() => setDeposit(Number(initialState.unstakedBalance))}
+              onClick={() =>
+                setDeposit(Math.floor(Number(initialState.unstakedBalance)))
+              }
             >
               Max
             </button>
@@ -139,28 +161,48 @@ const DoStake: React.FC = () => {
       {!initialState?.unstakeApproved ? (
         <div>
           <span style={{ textAlign: "center" }}>
-            First time unstaking HPT? Please approve (A Dao) to use your HPT for
-            staking.
+            First time unstaking HPT? Please approve (A Dao) to use your sHPT
+            for unstaking.
           </span>
           <Button disabled={loading} onClick={() => handleApprove(false)}>
             Approve
           </Button>
         </div>
       ) : (
-        <div>
+        <div className="form_group_wrapper">
+          <div className={toaster ? "toaster active" : "toaster"}>
+            Max limit for unstake is {initialState.unstakeLimit}
+          </div>
           <div className="form_input">
             <input
               type="number"
-              value={withdraw}
+              value={withdraw === 0 ? "" : withdraw}
               onChange={(e) => setWithdraw(Number(e.target.value))}
             />
             <button
-              onClick={() => setDeposit(Number(initialState.stakedBalance))}
+              onClick={() => {
+                let value =
+                  Math.floor(Number(initialState.stakedBalance)) >
+                  initialState.unstakeLimit;
+                let withdrawAmt = value
+                  ? initialState.unstakeLimit
+                  : Math.floor(Number(initialState.stakedBalance));
+                setWithdraw(withdrawAmt);
+              }}
             >
               Max
             </button>
           </div>
-          <Button disabled={loading} onClick={() => handleWithdraw()}>
+          <Button
+            disabled={loading || unstakeMaxDisable}
+            onMouseEnter={() =>
+              withdraw > initialState.unstakeLimit
+                ? setToaster(true)
+                : undefined
+            }
+            onMouseLeave={() => setToaster(false)}
+            onClick={() => handleWithdraw()}
+          >
             Unstake
           </Button>
         </div>
@@ -174,13 +216,19 @@ const DoStake: React.FC = () => {
         <div className="stake_container-header">
           <p
             className={isStake ? "active" : "inactive"}
-            onClick={() => setIsStake(true)}
+            onClick={() => {
+              setIsStake(true);
+              navigate("/stake?method=stake");
+            }}
           >
             Stake
           </p>
           <p
             className={!isStake ? "active" : "inactive"}
-            onClick={() => setIsStake(false)}
+            onClick={() => {
+              setIsStake(false);
+              navigate("/stake?method=unstake");
+            }}
           >
             Unstake
           </p>
@@ -192,17 +240,33 @@ const DoStake: React.FC = () => {
               <div className="stake_content_wrapper-block_one">
                 <div>
                   <b>Unstaked Balance</b>
-                  <b>{initialState?.unstakedBalance} HPT</b>
+                  <b>
+                    {new Intl.NumberFormat("en-US", {}).format(
+                      Number(initialState?.unstakedBalance)
+                    )}{" "}
+                    HPT
+                  </b>
                 </div>
                 <div>
                   <b>Total Staked Balance</b>
-                  <b>{initialState?.stakedBalance} sHPT</b>
+                  <b>
+                    {new Intl.NumberFormat("en-US", {}).format(
+                      Number(initialState?.stakedBalance)
+                    )}{" "}
+                    sHPT
+                  </b>
                 </div>
               </div>
               <div className="stake_content_wrapper-block_two">
                 <div>
                   <b>Pending Reward Amount</b>
-                  <b>{initialState?.pendingAmount} sHPT</b>
+                  <b>
+                    {" "}
+                    {new Intl.NumberFormat("en-US", {}).format(
+                      Number(initialState?.pendingAmount)
+                    )}{" "}
+                    sHPT
+                  </b>
                 </div>
                 <div>
                   <b></b>
@@ -237,12 +301,22 @@ const DoStake: React.FC = () => {
       </div>
       <div
         className={modal ? "transaction_loader active" : "transaction_loader"}
-        onClick={() => setModal(false)}
       >
         <div className="loader">
-          <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              justifyContent: "center",
+              gridGap: 10,
+            }}
+          >
             <img src={error} alt="error icon" />
             <p>You didn't have enough HPT token to process this transaction </p>
+            <a href="/" target="_blank" rel="noopener">
+              <Button>Buy</Button>
+            </a>
           </div>
         </div>
       </div>
