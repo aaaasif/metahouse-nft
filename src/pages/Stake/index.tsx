@@ -67,7 +67,7 @@ const Stake: React.FC = () => {
           Connect Wallet
         </Button>
       )}
-      <span>Connect your wallet to stake OHM </span>
+      <span>Connect your wallet to stake HPT </span>
     </div>
   );
 

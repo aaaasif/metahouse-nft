@@ -18,17 +18,17 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p>
-              <span>OHM Price</span>
+              <span>HPT Price</span>
               <b>-</b>
             </p>
             <p>
-              <span>Backing per OHM</span>
+              <span>Backing per HPT</span>
               <b>-</b>
             </p>
           </div>
           <div>
             <p>
-              <span>gOHM Price</span>
+              <span>gHPT Price</span>
               <b>-</b>
             </p>
             <p>

@@ -107,8 +107,12 @@ const DoStake: React.FC = () => {
       ) : (
         <div>
           <div className="form_input">
-            <input type="number" onChange={(e) => setDeposit(Number(e.target.value))} />
-            <button>Max</button>
+            <input
+              type="number"
+              value={deposit}
+              onChange={(e) => setDeposit(Number(e.target.value))}
+            />
+            <button onClick={() => setDeposit(Number(initialState.unstakedBalance))}>Max</button>
           </div>
           <Button disabled={loading} onClick={() => handleDeposit()}>
             Stake
@@ -132,8 +136,12 @@ const DoStake: React.FC = () => {
       ) : (
         <div>
           <div className="form_input">
-            <input type="number" onChange={(e) => setWithdraw(Number(e.target.value))} />
-            <button>Max</button>
+            <input
+              type="number"
+              value={withdraw}
+              onChange={(e) => setWithdraw(Number(e.target.value))}
+            />
+            <button onClick={() => setDeposit(Number(initialState.stakedBalance))}>Max</button>
           </div>
           <Button disabled={loading} onClick={() => handleWithdraw()}>
             Unstake
