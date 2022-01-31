@@ -52,9 +52,21 @@ export const approvesHPT = async () => {
 export const stake = async (_amount: string) => {
   const amount = Web3.utils.toWei(_amount).toString();
 
-  return await HPTStaking_Contract.methods
-    .stake(amount)
-    .send({ from: ethereum.selectedAddress });
+  const allowance = Web3.utils.toBN(
+    Web3.utils.fromWei(
+      await HPT_Contract.methods
+        .allowance(ethereum.selectedAddress, HPTStaking_Address)
+        .call()
+    )
+  );
+
+  if (allowance >= Web3.utils.toBN(_amount)) {
+    return await HPTStaking_Contract.methods
+      .stake(amount)
+      .send({ from: ethereum.selectedAddress });
+  } else {
+    console.log("Approve balance to stake");
+  }
 };
 
 export const unStake = async (_amount: string) => {

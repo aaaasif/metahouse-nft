@@ -105,7 +105,8 @@ const DoStake: React.FC = () => {
       {!initialState?.stakeApproved ? (
         <div>
           <span style={{ textAlign: "center" }}>
-            First time staking HPT? Please approve (A Dao) to use your HPT for staking.
+            First time staking HPT? Please approve (A Dao) to use your HPT for
+            staking.
           </span>
           <Button disabled={loading} onClick={() => handleApprove(true)}>
             Approve
@@ -119,7 +120,11 @@ const DoStake: React.FC = () => {
               value={deposit}
               onChange={(e) => setDeposit(Number(e.target.value))}
             />
-            <button onClick={() => setDeposit(Number(initialState.unstakedBalance))}>Max</button>
+            <button
+              onClick={() => setDeposit(Number(initialState.unstakedBalance))}
+            >
+              Max
+            </button>
           </div>
           <Button disabled={loading} onClick={() => handleDeposit()}>
             Stake
@@ -134,7 +139,8 @@ const DoStake: React.FC = () => {
       {!initialState?.unstakeApproved ? (
         <div>
           <span style={{ textAlign: "center" }}>
-            First time unstaking HPT? Please approve (A Dao) to use your HPT for staking.
+            First time unstaking HPT? Please approve (A Dao) to use your HPT for
+            staking.
           </span>
           <Button disabled={loading} onClick={() => handleApprove(false)}>
             Approve
@@ -148,7 +154,11 @@ const DoStake: React.FC = () => {
               value={withdraw}
               onChange={(e) => setWithdraw(Number(e.target.value))}
             />
-            <button onClick={() => setDeposit(Number(initialState.stakedBalance))}>Max</button>
+            <button
+              onClick={() => setDeposit(Number(initialState.stakedBalance))}
+            >
+              Max
+            </button>
           </div>
           <Button disabled={loading} onClick={() => handleWithdraw()}>
             Unstake
@@ -162,10 +172,16 @@ const DoStake: React.FC = () => {
     <>
       <div className="stake_container">
         <div className="stake_container-header">
-          <p className={isStake ? "active" : "inactive"} onClick={() => setIsStake(true)}>
+          <p
+            className={isStake ? "active" : "inactive"}
+            onClick={() => setIsStake(true)}
+          >
             Stake
           </p>
-          <p className={!isStake ? "active" : "inactive"} onClick={() => setIsStake(false)}>
+          <p
+            className={!isStake ? "active" : "inactive"}
+            onClick={() => setIsStake(false)}
+          >
             Unstake
           </p>
         </div>
@@ -211,7 +227,9 @@ const DoStake: React.FC = () => {
           </div>
         )}
       </div>
-      <div className={loading ? "transaction_loader active" : "transaction_loader"}>
+      <div
+        className={loading ? "transaction_loader active" : "transaction_loader"}
+      >
         <div className="loader">
           <img src={loader} alt="loader" />
           <p>Don't refresh your page</p>
