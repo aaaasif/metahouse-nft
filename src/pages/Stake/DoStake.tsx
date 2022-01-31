@@ -9,7 +9,9 @@ import {
   approvesHPT,
   claim,
 } from "../../utils/stake";
+
 import loader from "../../assets/icons/loader.png";
+import error from "../../assets/icons/error.svg";
 
 interface InitialProps {
   stakedBalance: string;
@@ -22,6 +24,7 @@ interface InitialProps {
 const DoStake: React.FC = () => {
   const [isStake, setIsStake] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
   const [withdraw, setWithdraw] = useState(0);
   const [deposit, setDeposit] = useState(0);
   const [initialState, setInitialState] = useState<InitialProps | null>(null);
@@ -70,6 +73,10 @@ const DoStake: React.FC = () => {
   };
 
   const handleDeposit = async () => {
+    if (Number(initialState?.unstakedBalance) <= 0) {
+      setModal(true);
+      return;
+    }
     setLoading(true);
     try {
       await stake(String(deposit));
@@ -127,7 +134,7 @@ const DoStake: React.FC = () => {
       {!initialState?.unstakeApproved ? (
         <div>
           <span style={{ textAlign: "center" }}>
-            First time staking HPT? Please approve (A Dao) to use your HPT for staking.
+            First time unstaking HPT? Please approve (A Dao) to use your HPT for staking.
           </span>
           <Button disabled={loading} onClick={() => handleApprove(false)}>
             Approve
@@ -208,6 +215,17 @@ const DoStake: React.FC = () => {
         <div className="loader">
           <img src={loader} alt="loader" />
           <p>Don't refresh your page</p>
+        </div>
+      </div>
+      <div
+        className={modal ? "transaction_loader active" : "transaction_loader"}
+        onClick={() => setModal(false)}
+      >
+        <div className="loader">
+          <div>
+            <img src={error} alt="error icon" />
+            <p>You didn't have enough HPT token to process this transaction </p>
+          </div>
         </div>
       </div>
     </>
