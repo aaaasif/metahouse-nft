@@ -108,7 +108,13 @@ const DoStake: React.FC = () => {
     }
     setLoading(true);
     try {
-      await stake(String(deposit));
+      const data = await stake(String(deposit));
+
+      if (data?.error === true) {
+        setModal("stakeApprove");
+        return;
+      }
+
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -378,6 +384,30 @@ const DoStake: React.FC = () => {
           >
             <p>Allowance is low,approve tokens to proceed</p>
             <Button disabled={loading} onClick={() => handleApprove(false)}>
+              Approve
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div
+        className={
+          modal === "stakeApprove"
+            ? "transaction_loader active"
+            : "transaction_loader"
+        }
+      >
+        <div className="loader">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              justifyContent: "center",
+              gridGap: 10,
+            }}
+          >
+            <p>Allowance is low,approve tokens to proceed</p>
+            <Button disabled={loading} onClick={() => handleApprove(true)}>
               Approve
             </Button>
           </div>

@@ -64,6 +64,7 @@ export const stake = async (_amount: string) => {
       .send({ from: ethereum.selectedAddress });
   } else {
     console.log("Allowance is low,approve tokens to proceed");
+    return { error: true };
   }
 };
 
