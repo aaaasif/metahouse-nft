@@ -245,7 +245,11 @@ const DoStake: React.FC = () => {
                 <div>
                   <b>Pending Reward Amount</b>
                   <b>
-                    {new Intl.NumberFormat("en-US", {}).format(initialState?.pendingAmount)} sHPT
+                    {new Intl.NumberFormat("en-US", {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 8,
+                    }).format(initialState?.pendingAmount)}{" "}
+                    sHPT
                   </b>
                 </div>
                 <div>
