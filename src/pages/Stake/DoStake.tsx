@@ -68,6 +68,10 @@ const DoStake: React.FC = () => {
     setLoading(true);
     try {
       if (stake) {
+        if (initialState && initialState?.unstakedBalance <= 0) {
+          setModal("stake");
+          return;
+        }
         await approveHPT();
       } else {
         await approvesHPT();
