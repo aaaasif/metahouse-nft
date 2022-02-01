@@ -4,9 +4,9 @@ import HPT from "./abis/HPT.json";
 import sHPT from "./abis/sHPT.json";
 import HPTStaking from "./abis/HPTStaking.json";
 
-const HPT_Address = "0xf03A1195FC63BB6b6Bb12aFA547FB9b77f16A550";
-const sHPT_Address = "0xf4DA6CBE6ACEdEbAE3883fB58DA2937F19785033";
-const HPTStaking_Address = "0x1c2ccB26d55DBd3c214296a496fb26F0f8e4CC09";
+const HPT_Address = "0x6723C8071EA65E1e6f5F169eE6Eb34A1aE5eF8A9";
+const sHPT_Address = "0xE9a53Af95358584B347DD42884BB310F612bBba2";
+const HPTStaking_Address = "0x0c004cbaA4Cb48F133F53b000ea80CC30bfbAE4f";
 
 const { ethereum } = window as any;
 
