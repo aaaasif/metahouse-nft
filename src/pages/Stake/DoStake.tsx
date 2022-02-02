@@ -277,7 +277,9 @@ const DoStake: React.FC = () => {
                 </div>
                 <div>
                   <b></b>
-                  <Button onClick={() => handleClaim()}>Claim</Button>
+                  <Button disabled={initialState.pendingAmount <= 0} onClick={() => handleClaim()}>
+                    Claim
+                  </Button>
                 </div>
                 {/* <div>
                 <b>Next Reward Yield</b>
