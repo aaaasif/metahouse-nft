@@ -22,7 +22,9 @@ app.get("/:address", async (req, res) => {
     chain: "0x4",
   });
 
-  const filteredData = data.filter((f) => f.token_address === req.query.nftAddress);
+  const filteredData = data.filter(
+    (f) => f.token_address === req.query.nftAddress.toLocaleLowerCase()
+  );
 
   res.send(filteredData);
 });
