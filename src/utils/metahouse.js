@@ -14,38 +14,44 @@ const address = window.ethereum.selectedAddress;
 
 // 2501-2520 hotel
 
+const checkId = (tokenid) => {
+  if (Number(tokenid) >= 2501 && Number(tokenid) <= 2520) return false;
+  return true;
+};
+
 export const stake = async (tokenid) => {
-  const staking = metahouse.methods.stake(tokenid).send({
+  const staking = await metahouse.methods.stake(tokenid).send({
     from: address,
   });
 };
 export const stakehotel = async (tokenid) => {
-  const staking = metahouse.methods.stake(tokenid).send({
+  const staking = await metahouse.methods.stake(tokenid).send({
     from: address,
   });
 };
 
 export const unstake = async (tokenid) => {
-  const unstaking = metahouse.methods.unstake(tokenid).send({
+  const unstaking = await metahouse.methods.unstake(tokenid).send({
     from: address,
   });
 };
 export const unstakehotel = async (tokenid) => {
-  const unstaking = metahouse.methods.unstake(tokenid).send({
+  const unstaking = await metahouse.methods.unstake(tokenid).send({
     from: address,
   });
 };
 
 export const balance = async () => {
-  const balance = metahouse.methods.balanceOf(address).call();
+  const balance = await metahouse.methods.balanceOf(address).call();
   return balance;
 };
 
 export const rewardcalculator = async (tokenid) => {
-  const reward = metahouse.methods.rewardcalculator(tokenid).call();
-  return reward;
-};
-export const rewardcalculatorhotel = async (tokenid) => {
-  const reward = metahouse.methods.rewardcalculatorhotel(tokenid).call();
-  return reward;
+  if (checkId(tokenid)) {
+    const reward = await metahouse.methods.rewardcalculator(tokenid).call();
+    return web3.utils.fromWei(reward);
+  }
+
+  const reward = await metahouse.methods.rewardcalculatorhotel(tokenid).call();
+  return web3.utils.fromWei(reward);
 };

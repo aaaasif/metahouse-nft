@@ -10,3 +10,12 @@ body {
 .App {
   text-align: center;
 }
+
+button {
+  transition: all 300ms linear;
+}
+
+button:disabled {
+  cursor: no-drop;
+  background-color: grey;
+}

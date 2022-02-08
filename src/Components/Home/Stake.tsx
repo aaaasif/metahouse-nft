@@ -1,32 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { Injected } from "../../utils/connector";
 import { getUserNfts } from "../../utils/fetchUserNft";
 import { stake, stakehotel } from "../../utils/metahouse";
 
-const Stake: React.FC = () => {
-  const { active, activate, account } = useWeb3React();
+const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
+  const { active, account } = useWeb3React();
   const [nftData, setNftData] = useState<any>(null);
-  const [tokenId, setTokenId] = useState("");
+  const [tokenId, setTokenId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleGetNfts = useCallback(async () => {
     if (account) {
+      setLoading(true);
       const data = await getUserNfts(account);
       setNftData(data);
+      setLoading(false);
     }
   }, [account]);
 
   useEffect(() => {
     handleGetNfts();
   }, [handleGetNfts]);
-
-  const handleConnect = async () => {
-    try {
-      await activate(Injected);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleStake = async (tokenId: string) => {
     try {
@@ -55,22 +49,32 @@ const Stake: React.FC = () => {
             <div>Loading...</div>
           ) : (
             <div>
-              {nftData.map((nft, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => setTokenId(nft.token_id)}
-                    style={{ transform: tokenId === nft.token_id ? "scale(1.1)" : "scale(1)" }}
-                  >
-                    <img src={nft.image} alt={nft.token_id} width={40} height={40} />
-                  </div>
-                );
-              })}
+              {!nftData?.length ? (
+                <div>
+                  <h3>none</h3>
+                </div>
+              ) : (
+                nftData?.map((nft, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => setTokenId(nft.token_id)}
+                      style={{ transform: tokenId === nft.token_id ? "scale(1.1)" : "scale(1)" }}
+                    >
+                      <img src={nft.image} alt={nft.token_id} width={40} height={40} />
+                    </div>
+                  );
+                })
+              )}
             </div>
           )}
           <div>
-            <button className="connect-wallet" onClick={() => handleStake(tokenId)}>
-              Stake
+            <button
+              className="connect-wallet"
+              disabled={loading || !nftData?.length}
+              onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
+            >
+              UnStaked
             </button>
           </div>
         </div>
