@@ -1,15 +1,32 @@
-// <<<<<<< HEAD
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useWeb3React } from "@web3-react/core";
 import { Container, Nav, Navbar } from "react-bootstrap";
-
+import { Injected } from "../../utils/connector";
+import { getBalance } from "../../utils/metahouse";
 import "./Header.css";
-// =======
-// import React from "react";
-// import { Container, Nav, Navbar } from "react-bootstrap";
-// import "./Header.css";
-// >>>>>>> b2c046f249ed8cb67456b9a1c269b630980eb10e
 
 const Header: React.FC = () => {
+  const { active, activate, account } = useWeb3React();
+  const [balance, setBalance] = useState("");
+
+  const handleGetBalance = useCallback(async () => {
+    if (active) {
+      setBalance(await getBalance());
+    }
+  }, [balance]);
+
+  useEffect(() => {
+    handleGetBalance();
+  }, [handleGetBalance]);
+
+  const handleConnect = async () => {
+    try {
+      await activate(Injected);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -50,8 +67,16 @@ const Header: React.FC = () => {
               >
                 Whitepaper
               </Nav.Link>
-              <button className="header-button">0 MH</button>
-              <button className="header-button">Connect Wallet</button>
+              <button className="header-button">{balance} MH</button>
+              {!active ? (
+                <button className="header-button" onClick={() => handleConnect()}>
+                  Connect Wallet
+                </button>
+              ) : (
+                <button className="header-button">
+                  {account && `${account.slice(0, 6)}...${account.slice(account.length - 6)}`}
+                </button>
+              )}
             </Nav>
           </Navbar.Collapse>
         </div>

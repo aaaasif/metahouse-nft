@@ -36,6 +36,105 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({
     }
   };
 
+  const renderStake = (
+    <div>
+      <h4>Staked</h4>
+      {!nftData ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          {!nftData?.length ? (
+            <div>
+              <p>none</p>
+            </div>
+          ) : (
+            nftData?.map((nft, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() => setTokenId(nft.token_id)}
+                  style={{
+                    transform:
+                      tokenId === nft.token_id ? "scale(1.1)" : "scale(1)",
+                  }}
+                >
+                  <img
+                    src={nft.image}
+                    alt={nft.token_id}
+                    width={40}
+                    height={40}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
+      <div>
+        <button
+          className="connect-wallet"
+          disabled={loading || !nftData?.length}
+          onClick={() =>
+            !tokenId ? alert("select one nft to stake") : handleStake(tokenId)
+          }
+        >
+          Unstake
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderUnstake = (
+    <>
+      <h4>Unstaked</h4>
+      {!nftData ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          {!nftData?.length ? (
+            <div>
+              <p>none</p>
+            </div>
+          ) : (
+            <div className="card__wrapper">
+              {nftData?.map((nft, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => setTokenId(nft.token_id)}
+                    className={
+                      tokenId === nft.token_id
+                        ? "nft_image active"
+                        : "nft_image"
+                    }
+                  >
+                    <img
+                      src={nft.image}
+                      alt={nft.token_id}
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+      <div>
+        <button
+          className="connect-wallet"
+          disabled={loading || !nftData?.length}
+          onClick={() =>
+            !tokenId ? alert("select one nft to stake") : handleStake(tokenId)
+          }
+        >
+          Stake
+        </button>
+      </div>
+    </>
+  );
+
   return (
     <div className="bg-tran mt-4">
       <h4 className="text-uppercase  text-white">play genx</h4>
@@ -46,51 +145,8 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({
         </button>
       ) : (
         <div>
-          <h4>Staked</h4>
-          {!nftData ? (
-            <div>Loading...</div>
-          ) : (
-            <div>
-              {!nftData?.length ? (
-                <div>
-                  <h3>none</h3>
-                </div>
-              ) : (
-                nftData?.map((nft, index) => {
-                  return (
-                    <div
-                      key={index}
-                      onClick={() => setTokenId(nft.token_id)}
-                      style={{
-                        transform:
-                          tokenId === nft.token_id ? "scale(1.1)" : "scale(1)",
-                      }}
-                    >
-                      <img
-                        src={nft.image}
-                        alt={nft.token_id}
-                        width={40}
-                        height={40}
-                      />
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          )}
-          <div>
-            <button
-              className="connect-wallet"
-              disabled={loading || !nftData?.length}
-              onClick={() =>
-                !tokenId
-                  ? alert("select one nft to stake")
-                  : handleStake(tokenId)
-              }
-            >
-              UnStaked
-            </button>
-          </div>
+          <div style={{ marginBottom: 30 }}>{renderStake}</div>
+          <div>{renderUnstake}</div>
         </div>
       )}
     </div>

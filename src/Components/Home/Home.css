@@ -3,7 +3,15 @@
   background-repeat: no-repeat;
   background-position: center center;
   padding: 5.7rem 0;
+  background-attachment: fixed;
+  background-size: cover;
+  height: calc(100vh - 50px);
+  overflow-y: auto;
 }
+.form-bg::-webkit-scrollbar {
+  display: none;
+}
+
 .bg-tran {
   background-image: url(../../assets/image/background2.png);
   background-repeat: no-repeat;
@@ -56,4 +64,26 @@
   border-radius: 10px;
   border: 1px solid #8c30f5;
   text-align: center;
+}
+
+.card__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.nft_image {
+  width: 80px;
+  height: 80px;
+  border: 2px solid transparent;
+  transition: 300ms all linear;
+}
+
+.nft_image img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.nft_image.active {
+  border: 2px solid #fff;
 }

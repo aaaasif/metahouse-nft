@@ -18,7 +18,7 @@ const checkId = (tokenid) => {
 };
 
 export const stake = async (tokenid) => {
-  return await metahouse.methods.stake(tokenid).send({
+  const staking = await metahouse.methods.stake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
@@ -39,7 +39,7 @@ export const unstakehotel = async (tokenid) => {
   });
 };
 
-export const balance = async () => {
+export const getBalance = async () => {
   const balance = await metahouse.methods
     .balanceOf(window.ethereum.selectedAddress)
     .call();

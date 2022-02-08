@@ -6,8 +6,7 @@ import "./Home.css";
 import Stake from "./Stake";
 
 const Home: React.FC = () => {
-  const [tokenId, setTokenId] = useState<string>("");
-  const { activate, active } = useWeb3React();
+  const { activate } = useWeb3React();
 
   const handleConnect = async () => {
     try {
@@ -17,18 +16,11 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleReward = async () => {
-    try {
-      await rewardcalculator(tokenId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="form-bg">
       <div className="bg-tran">
-        <h4 className="text-uppercase text-white">Reward</h4>
+        <h4 className="text-uppercase text-white">APY</h4>
+        <h5>10000%</h5>
         {/* <div className="stGen">
           <div className="d-flex justify-content-center align-items-center">
             <button className="my-btn"></button>
@@ -50,20 +42,6 @@ const Home: React.FC = () => {
         <span>
           
         </span> */}
-        <div>
-          <input type="text" value={tokenId} onChange={(e) => setTokenId(e.target.value)} />
-        </div>
-        <div>
-          {!active ? (
-            <button className="connect-wallet" onClick={() => handleConnect()}>
-              Connect wallet
-            </button>
-          ) : (
-            <button className="connect-wallet" onClick={() => handleReward()}>
-              View Rewards
-            </button>
-          )}
-        </div>
       </div>
 
       <Stake handleConnect={handleConnect} />
