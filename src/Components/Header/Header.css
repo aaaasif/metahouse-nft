@@ -1,11 +1,13 @@
-.header-button{
-    margin: 10px;
-    background-color: #8C30F5;
-    padding: 10px;
-    border-radius: 10px;
-    border: 0px solid black;
+.header-button {
+  margin: 10px;
+  background-color: #8c30f5;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0px solid black;
+  height: 50px;
+  box-sizing: border-box;
 }
-.header-text{
-    font-weight: bolder;
-    color: black;
+.header-text {
+  font-weight: bolder;
+  color: black;
 }
