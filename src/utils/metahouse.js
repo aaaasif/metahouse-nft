@@ -10,8 +10,6 @@ const web3 = new Web3(window.ethereum);
 const nft = new web3.eth.Contract(nftabi, nftaddress);
 const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
 
-const address = window.ethereum.selectedAddress;
-
 // 2501-2520 hotel
 
 const checkId = (tokenid) => {
@@ -21,28 +19,28 @@ const checkId = (tokenid) => {
 
 export const stake = async (tokenid) => {
   const staking = await metahouse.methods.stake(tokenid).send({
-    from: address,
+    from: window.ethereum.selectedAddress,
   });
 };
 export const stakehotel = async (tokenid) => {
   const staking = await metahouse.methods.stake(tokenid).send({
-    from: address,
+    from: window.ethereum.selectedAddress,
   });
 };
 
 export const unstake = async (tokenid) => {
   const unstaking = await metahouse.methods.unstake(tokenid).send({
-    from: address,
+    from: window.ethereum.selectedAddress,
   });
 };
 export const unstakehotel = async (tokenid) => {
   const unstaking = await metahouse.methods.unstake(tokenid).send({
-    from: address,
+    from: window.ethereum.selectedAddress,
   });
 };
 
-export const balance = async () => {
-  const balance = await metahouse.methods.balanceOf(address).call();
+export const getBalance = async () => {
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
   return balance;
 };
 

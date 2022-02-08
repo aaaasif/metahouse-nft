@@ -1,11 +1,23 @@
+import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Injected } from "../../utils/connector";
+import { getBalance } from "../../utils/metahouse";
 import "./Header.css";
 
 const Header: React.FC = () => {
   const { active, activate, account } = useWeb3React();
+  const [balance, setBalance] = useState("");
+
+  const handleGetBalance = useCallback(async () => {
+    if (active) {
+      setBalance(await getBalance());
+    }
+  }, [balance]);
+
+  useEffect(() => {
+    handleGetBalance();
+  }, [handleGetBalance]);
 
   const handleConnect = async () => {
     try {
@@ -44,7 +56,7 @@ const Header: React.FC = () => {
               <Nav.Link className=" header-text d-flex align-items-center" href="whitepaper">
                 Whitepaper
               </Nav.Link>
-              <button className="header-button">0 MH</button>
+              <button className="header-button">{balance} MH</button>
               {!active ? (
                 <button className="header-button" onClick={() => handleConnect()}>
                   Connect Wallet
