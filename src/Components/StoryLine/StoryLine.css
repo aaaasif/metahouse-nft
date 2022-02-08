@@ -1,0 +1,22 @@
+.storyline-text{
+    width: 800px;
+    margin: auto;
+    padding: 10px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    
+}
+.storyline-text p{
+    font-size: 14px;
+    align-items: flex-start;
+    text-decoration: none;
+    text-align: left;
+}
+.storyline-header{
+    margin-top: 50px;
+    color: #0A901B;
+    font-style: italic;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+}

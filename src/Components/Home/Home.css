@@ -1,0 +1,59 @@
+.form-bg {
+  background-image: url(../../assets/image/background1.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 5.7rem 0;
+}
+.bg-tran {
+  background-image: url(../../assets/image/background2.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 20px 0;
+}
+.stGen {
+  background-color: #fff;
+  padding: 5px;
+  display: inline-block;
+  border-radius: 10px;
+}
+.my-btn {
+  border: none;
+  padding: 18px 30px;
+  border-radius: 10px 0 0 10px;
+  background-color: #8c30f5;
+}
+.my-input {
+  border: none;
+  padding: 6px 0;
+  padding-left: 10px;
+}
+.my-input:focus {
+  outline: none;
+}
+
+.connect-wallet {
+  background-color: #8c30f5;
+  padding: 8px 20px;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+}
+.my-color {
+  background-color: #8c30f5;
+  border-radius: 50%;
+  border: none;
+  color: #fff;
+  font-weight: 900;
+  padding: 0 7px 2px 6px;
+}
+.increment {
+  padding: 0 9px 2px 9px;
+}
+.midel-input {
+  width: 2.5rem;
+  height: 1.3rem;
+  margin: 0 3px;
+  border-radius: 10px;
+  border: 1px solid #8c30f5;
+  text-align: center;
+}
