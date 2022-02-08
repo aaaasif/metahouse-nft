@@ -1,7 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { useState } from "react";
+import React from "react";
 import { Injected } from "../../utils/connector";
-import { rewardcalculator } from "../../utils/metahouse";
 import "./Home.css";
 import Stake from "./Stake";
 

@@ -10,10 +10,10 @@ const Header: React.FC = () => {
   const [balance, setBalance] = useState("");
 
   const handleGetBalance = useCallback(async () => {
-    if (active) {
+    if (account) {
       setBalance(await getBalance());
     }
-  }, [balance]);
+  }, [balance, account]);
 
   useEffect(() => {
     handleGetBalance();
