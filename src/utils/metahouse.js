@@ -11,7 +11,7 @@ const nft = new web3.eth.Contract(nftabi, nftaddress);
 const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
 
 export const stake = async (tokenid) => {
-  const staking = metahouse.methods.stake("1").send({
+  const staking = metahouse.methods.stake(tokenid).send({
     from: "0x62562d3F2a512Dee20F13D7e43D0B4fC712CaA4A",
   });
 };
@@ -43,7 +43,7 @@ export const rewardcalculator = async (tokenid) => {
   const reward = metahouse.methods.rewardcalculator(tokenid).call();
   return reward;
 };
-export const rewardcalculatorhotel = async () => {
+export const rewardcalculatorhotel = async (tokenid) => {
   const reward = metahouse.methods.rewardcalculatorhotel(tokenid).call();
   return reward;
 };

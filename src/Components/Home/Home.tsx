@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css";
 import Moralis from "moralis/node";
+import { stake, unstake } from "../../utils/metahouse";
 
 const serverUrl = "https://varzkk0evwit.usemoralis.com:2053/server";
 const appId = "0kfAupQphG55NcYoOHoIaq68knWSvWD4D3XmacLM";
@@ -51,6 +52,8 @@ const Home: React.FC = () => {
         <br />
         <button className="connect-wallet">Connect Wallet</button>
       </div>
+      <button onClick={() => stake(0)}>Stake</button>
+      {/* <button onClick={() => unstake()}>Unstake</button> */}
     </div>
   );
 };
