@@ -4,7 +4,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { BrowserRouter } from "react-router-dom";
 import Web3 from "web3";
 import App from "./App";
-import "./index.scss";
+import "./index.css";
 
 const getLibrary = (provider: any) => {
   return new Web3(provider);
