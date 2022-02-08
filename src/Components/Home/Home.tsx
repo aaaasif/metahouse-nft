@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "./Home.css";
+import Moralis from "moralis/node";
+
+const serverUrl = "https://varzkk0evwit.usemoralis.com:2053/server";
+const appId = "0kfAupQphG55NcYoOHoIaq68knWSvWD4D3XmacLM";
 
 const Home: React.FC = () => {
   const [num, setNum] = useState(1);
