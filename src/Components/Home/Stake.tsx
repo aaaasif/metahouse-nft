@@ -3,7 +3,9 @@ import { useWeb3React } from "@web3-react/core";
 import { getUserNfts } from "../../utils/fetchUserNft";
 import { stake, stakehotel } from "../../utils/metahouse";
 
-const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
+const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({
+  handleConnect,
+}) => {
   const { active, account } = useWeb3React();
   const [nftData, setNftData] = useState<any>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
@@ -59,9 +61,17 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
                     <div
                       key={index}
                       onClick={() => setTokenId(nft.token_id)}
-                      style={{ transform: tokenId === nft.token_id ? "scale(1.1)" : "scale(1)" }}
+                      style={{
+                        transform:
+                          tokenId === nft.token_id ? "scale(1.1)" : "scale(1)",
+                      }}
                     >
-                      <img src={nft.image} alt={nft.token_id} width={40} height={40} />
+                      <img
+                        src={nft.image}
+                        alt={nft.token_id}
+                        width={40}
+                        height={40}
+                      />
                     </div>
                   );
                 })
@@ -72,7 +82,11 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
             <button
               className="connect-wallet"
               disabled={loading || !nftData?.length}
-              onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
+              onClick={() =>
+                !tokenId
+                  ? alert("select one nft to stake")
+                  : handleStake(tokenId)
+              }
             >
               UnStaked
             </button>
