@@ -1,0 +1,66 @@
+.profile_container {
+  background: linear-gradient(
+    171.87deg,
+    #ffa624 6.25%,
+    rgba(253, 166, 36, 0.22) 35.86%,
+    rgba(17, 13, 36, 0.18) 62.7%,
+    rgba(17, 13, 36, 0) 82.15%
+  );
+  height: 100vh;
+  overflow-y: auto;
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+
+  &_logo {
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .userProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > .avatar {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .userlinks {
+    display: flex;
+    flex-direction: column;
+
+    .profile_link {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1em;
+
+      span {
+        font-size: 1em;
+        line-height: 30px;
+        color: var(--text-white);
+        margin-left: 1em;
+      }
+    }
+  }
+}

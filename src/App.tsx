@@ -1,23 +1,34 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Profile } from "./components";
+import { CompletedProject, PendingProject, SignIn, SignUp } from "./pages";
+import { CreateProject } from "./pages";
 
-import { Header, Menu } from "./components";
-import Stake from "./pages/Stake";
-import Dashboard from "./pages/Dashboard";
-import { useEagerConnect } from "./hooks/useEagerConnect";
+let isUser = true;
 
 const App: React.FC = () => {
-  useEagerConnect();
   return (
-    <div className="app">
-      <Menu />
-      <div className="page_wrapper">
-        <Header />
+    <div>
+      <Routes>
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+      {!isUser ? (
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/stake" element={<Stake />} />
+          <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
-      </div>
+      ) : (
+        <div className="app">
+          <Profile />
+          <div className="profile_route_wrapper">
+            <Routes>
+              <Route path="/" element={<CreateProject />} />
+              <Route path="/completed-project" element={<CompletedProject />} />
+              <Route path="/pending-project" element={<PendingProject />} />
+            </Routes>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
