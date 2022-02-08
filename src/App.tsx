@@ -4,8 +4,10 @@ import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
 import StoryLine from "./Components/StoryLine/StoryLine";
 import Whitepaper from "./Components/Whitepaper/Whitepaper";
+import { useEagerConnect } from "./hooks/useEagerConnect";
 
 const App: React.FC = () => {
+  useEagerConnect();
   return (
     <div className="App">
       <Header />
