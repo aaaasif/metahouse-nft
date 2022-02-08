@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     if (account) {
       setBalance(await getBalance());
     }
-  }, [balance, account]);
+  }, [account]);
 
   useEffect(() => {
     handleGetBalance();
