@@ -31,7 +31,10 @@ const Header: React.FC = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <div className="justify-content-md-between">
-          <Navbar.Brand href="home" className="d-flex flex-row justify-content-between ">
+          <Navbar.Brand
+            href="home"
+            className="d-flex flex-row justify-content-between "
+          >
             <div className="p-2">
               <img
                 src="https://i.ibb.co/jws8b4y/house-1.png"
@@ -42,7 +45,9 @@ const Header: React.FC = () => {
               />
             </div>
             <div>
-              <h4 className="pt-2">BEAR GAME</h4>
+              <h4 className="pt-2" style={{ fontWeight: "bold" }}>
+                META HOUSE
+              </h4>
             </div>
           </Navbar.Brand>
         </div>
@@ -50,10 +55,16 @@ const Header: React.FC = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className=" header-text d-flex align-items-center" href="storyline">
+              <Nav.Link
+                className=" header-text d-flex align-items-center"
+                href="storyline"
+              >
                 Story Line
               </Nav.Link>
-              <Nav.Link className=" header-text d-flex align-items-center" href="whitepaper">
+              <Nav.Link
+                className=" header-text d-flex align-items-center"
+                href="whitepaper"
+              >
                 Whitepaper
               </Nav.Link>
               <button className="header-button">{balance} MH</button>

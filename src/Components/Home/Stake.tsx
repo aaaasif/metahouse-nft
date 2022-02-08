@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { getUserNfts } from "../../utils/fetchUserNft";
-import { stake, stakehotel } from "../../utils/metahouse";
+import { stake, stakehotel, unstake, unstakehotel } from "../../utils/metahouse";
 
 const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
   const { active, account } = useWeb3React();
@@ -24,12 +24,34 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   }, [handleGetNfts]);
 
   const handleStake = async (tokenId: string) => {
+    setLoading(true);
     try {
       if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
         await stakehotel(tokenId);
+        setLoading(false);
+        window.location.reload();
         return;
       }
       await stake(tokenId);
+      setLoading(false);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUnstake = async (tokenId: string) => {
+    setLoading(true);
+    try {
+      if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
+        await unstakehotel(tokenId);
+        setLoading(false);
+        window.location.reload();
+        return;
+      }
+      await unstake(tokenId);
+      window.location.reload();
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +64,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
         <div>Loading...</div>
       ) : (
         <div>
-          {!nftData?.length ? (
+          {!nftData?.filter((f) => f.isStaked === true)?.length ? (
             <div>
               <p>none</p>
             </div>
@@ -66,8 +88,8 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
       <div>
         <button
           className="connect-wallet"
-          disabled={loading || !nftData?.length}
-          onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
+          disabled={loading || !nftData?.filter((f) => f.isStaked === true)?.length}
+          onClick={() => (!tokenId ? alert("select one nft to unstake") : handleUnstake(tokenId))}
         >
           Unstake
         </button>
@@ -82,7 +104,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
         <div>Loading...</div>
       ) : (
         <div>
-          {!nftData?.length ? (
+          {!nftData?.filter((f) => f.isStaked === false)?.length ? (
             <div>
               <p>none</p>
             </div>
@@ -108,7 +130,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
       <div>
         <button
           className="connect-wallet"
-          disabled={loading || !nftData?.length}
+          disabled={loading || !nftData?.filter((f) => f.isStaked === false)?.length}
           onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
         >
           Stake

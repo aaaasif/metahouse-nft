@@ -2,8 +2,8 @@ import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
 // import nftabi from "./abis/nft.json";
 
-export const nftaddress = "0xD0494c40586F58b3a71c80da3380C00e74c64369";
-const metahouseaddress = "0xC0DD734777CEFCb726c5C3D12F68E70856d7ec6a";
+export const nftaddress = "0x1C95Cd47C02d487C665EcCb3F6a0CB0323da9aa4";
+const metahouseaddress = "0xAACBdF62b2477fC3caCf44f975c118578F89FD4C";
 
 const web3 = new Web3(window.ethereum);
 
@@ -55,6 +55,5 @@ export const rewardcalculator = async (tokenid) => {
 };
 
 export const getIsStakedTokenId = async (tokenId) => {
-  console.log(await metahouse.methods);
-  return false;
+  return await metahouse.methods.stakecheck(tokenId).call();
 };
