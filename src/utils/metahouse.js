@@ -2,8 +2,8 @@ import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
 import nftabi from "./abis/nft.json";
 
-export const nftaddress = "0xEc9323e01B0D3213A980b02e43Ba68Db06b9ae15";
-const metahouseaddress = "0xe1a07cbf1B00e70F162B502E7DD713f27225f273";
+export const nftaddress = "0x1C95Cd47C02d487C665EcCb3F6a0CB0323da9aa4";
+const metahouseaddress = "0xAACBdF62b2477fC3caCf44f975c118578F89FD4C";
 
 const web3 = new Web3(window.ethereum);
 
