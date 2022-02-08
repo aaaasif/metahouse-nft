@@ -2,8 +2,8 @@ import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
 import nftabi from "./abis/nft.json";
 
-const nftaddress = "0xE3775809E01c34cf5C7edc52F1aD6be6BE430Af7";
-const metahouseaddress = "0x7dFd1c3eb0896A8C9CF995ED4f52C0DCe411B933";
+const nftaddress = "0xD0494c40586F58b3a71c80da3380C00e74c64369";
+const metahouseaddress = "0xC0DD734777CEFCb726c5C3D12F68E70856d7ec6a";
 
 const web3 = new Web3(window.ethereum);
 
@@ -16,18 +16,18 @@ export const stake = async (tokenid) => {
   });
 };
 export const stakehotel = async (tokenid) => {
-  const staking = metahouse.methods.stake("1").send({
+  const staking = metahouse.methods.stake(tokenid).send({
     from: "0x62562d3F2a512Dee20F13D7e43D0B4fC712CaA4A",
   });
 };
 
 export const unstake = async (tokenid) => {
-  const unstaking = metahouse.methods.unstake("1").send({
+  const unstaking = metahouse.methods.unstake(tokenid).send({
     from: "0x62562d3F2a512Dee20F13D7e43D0B4fC712CaA4A",
   });
 };
 export const unstakehotel = async (tokenid) => {
-  const unstaking = metahouse.methods.unstake("1").send({
+  const unstaking = metahouse.methods.unstake(tokenid).send({
     from: "0x62562d3F2a512Dee20F13D7e43D0B4fC712CaA4A",
   });
 };
