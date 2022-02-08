@@ -39,7 +39,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({
   const renderStake = (
     <div>
       <h4>Staked</h4>
-      {!nftData ? (
+      {/* {!nftData ? (
         <div>Loading...</div>
       ) : (
         <div>
@@ -80,7 +80,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({
         >
           Unstake
         </button>
-      </div>
+      </div> */}
     </div>
   );
 
@@ -145,7 +145,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({
         </button>
       ) : (
         <div>
-          <div style={{ marginBottom: 30 }}>{renderStake}</div>
+          {/* <div style={{ marginBottom: 30 }}>{renderStake}</div> */}
           <div>{renderUnstake}</div>
         </div>
       )}
