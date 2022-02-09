@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { fetchUserStakedNfts, getUserNfts } from "../../utils/fetchUserNft";
-import { stake, stakehotel, stakeid, unstake, unstakehotel } from "../../utils/metahouse";
+import { stakePixel, stakeIdPixel, unstakePixel } from "../../utils/metahouse";
 
-const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
+const Pixel: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
   const { active, account } = useWeb3React();
   const [nftData, setNftData] = useState<any>(null);
   const [stakedData, setStakedData] = useState<any>(null);
@@ -14,7 +14,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
     if (account) {
       setLoading(true);
       const data = await getUserNfts(account);
-      const ids = await stakeid(account);
+      const ids = await stakeIdPixel(account);
       const sData = await fetchUserStakedNfts(ids);
       console.log(ids);
       setStakedData(sData);
@@ -31,13 +31,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   const handleStake = async (tokenId: string) => {
     setLoading(true);
     try {
-      if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
-        await stakehotel(tokenId);
-        setLoading(false);
-        window.location.reload();
-        return;
-      }
-      await stake(tokenId);
+      await stakePixel(tokenId);
       setLoading(false);
       window.location.reload();
     } catch (error) {
@@ -48,13 +42,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   const handleUnstake = async (tokenId: string) => {
     setLoading(true);
     try {
-      if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
-        await unstakehotel(tokenId);
-        setLoading(false);
-        window.location.reload();
-        return;
-      }
-      await unstake(tokenId);
+      await unstakePixel(tokenId);
       window.location.reload();
       setLoading(false);
     } catch (error) {
@@ -158,4 +146,4 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   );
 };
 
-export default Stake;
+export default Pixel;

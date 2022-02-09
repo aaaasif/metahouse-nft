@@ -3,9 +3,10 @@ import metahouseabi from "./abis/metahouse.json";
 import pixelabi from "./abis/pixel.json";
 // import nftabi from "./abis/nft.json";
 
+export const chain = "0x4";
 export const nftaddress = "0x828cC55FF5f92e122001dE363fd418C5D20B65CB";
 const metahouseaddress = "0xCc710C6A4Bdf186b90FE09808a3A31d884b561B9";
-const pixeladdress = "0xcc3ef5E58943a367547bAC40f7464390af100384";
+export const pixeladdress = "0xcc3ef5E58943a367547bAC40f7464390af100384";
 const web3 = new Web3(window.ethereum);
 
 // const nft = new web3.eth.Contract(nftabi, nftaddress);
@@ -23,7 +24,7 @@ export const stake = async (tokenid) => {
     from: window.ethereum.selectedAddress,
   });
 };
-export const stakepixel = async (tokenid) => {
+export const stakePixel = async (tokenid) => {
   await pixelhouse.methods.stake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
@@ -39,7 +40,7 @@ export const unstake = async (tokenid) => {
     from: window.ethereum.selectedAddress,
   });
 };
-export const unstakepixel = async (tokenid) => {
+export const unstakePixel = async (tokenid) => {
   await pixelhouse.methods.unstake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
@@ -51,9 +52,7 @@ export const unstakehotel = async (tokenid) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods
-    .balanceOf(window.ethereum.selectedAddress)
-    .call();
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
   return web3.utils.fromWei(balance);
 };
 
@@ -70,7 +69,8 @@ export const rewardcalculator = async (tokenid) => {
 export const stakeid = async (address) => {
   return await metahouse.methods.ids(address).call();
 };
-export const stakeidpixel = async (address) => {
+export const stakeIdPixel = async (address) => {
+  console.log(pixelhouse.methods);
   return await pixelhouse.methods.idspixel(address).call();
 };
 export const getIsStakedTokenId = async (tokenId) => {
