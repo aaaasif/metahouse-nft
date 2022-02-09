@@ -13,10 +13,12 @@
 }
 
 .bg-tran {
-  background-image: url(../../assets/image/background2.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  padding: 20px 0;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+  margin: 0 auto;
 }
 .stGen {
   background-color: #fff;
@@ -71,13 +73,18 @@
   justify-content: center;
   align-items: center;
   margin: 1em 0;
+  grid-gap: 1em;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .nft_image {
   width: 200px;
   height: 200px;
-  border: 2px solid transparent;
+  border: 5px solid transparent;
   transition: 300ms all linear;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .nft_image img {
@@ -87,5 +94,6 @@
 }
 
 .nft_image.active {
-  border: 2px solid #fff;
+  border: 5px solid #fff;
+  /* transform: scale(1.1); */
 }

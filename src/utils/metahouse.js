@@ -1,13 +1,13 @@
 import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
-import nftabi from "./abis/nft.json";
+// import nftabi from "./abis/nft.json";
 
 export const nftaddress = "0xE92C980669dBb127b64094bB321CBfc0789d5Bb6";
 const metahouseaddress = "0x74cc619E0f851A28f6FBe183403dcb0d7661A879";
 
 const web3 = new Web3(window.ethereum);
 
-const nft = new web3.eth.Contract(nftabi, nftaddress);
+// const nft = new web3.eth.Contract(nftabi, nftaddress);
 const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
 
 // 2501-2520 hotel
@@ -18,23 +18,23 @@ const checkId = (tokenid) => {
 };
 
 export const stake = async (tokenid) => {
-  const staking = await metahouse.methods.stake(tokenid).send({
+  await metahouse.methods.stake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
 export const stakehotel = async (tokenid) => {
-  const staking = await metahouse.methods.stake(tokenid).send({
+  await metahouse.methods.stake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
 
 export const unstake = async (tokenid) => {
-  const unstaking = await metahouse.methods.unstake(tokenid).send({
+  await metahouse.methods.unstake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
 export const unstakehotel = async (tokenid) => {
-  const unstaking = await metahouse.methods.unstake(tokenid).send({
+  await metahouse.methods.unstake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
@@ -58,4 +58,7 @@ export const rewardcalculator = async (tokenid) => {
 
 export const stakeid = async (address) => {
   return await metahouse.methods.ids(address).call();
+};
+export const getIsStakedTokenId = async (tokenId) => {
+  return await metahouse.methods.stakecheck(tokenId).call();
 };
