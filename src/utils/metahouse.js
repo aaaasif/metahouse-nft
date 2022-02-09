@@ -2,8 +2,8 @@ import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
 // import nftabi from "./abis/nft.json";
 
-export const nftaddress = "0xE92C980669dBb127b64094bB321CBfc0789d5Bb6";
-const metahouseaddress = "0x74cc619E0f851A28f6FBe183403dcb0d7661A879";
+export const nftaddress = "0x828cC55FF5f92e122001dE363fd418C5D20B65CB";
+const metahouseaddress = "0xCc710C6A4Bdf186b90FE09808a3A31d884b561B9";
 
 const web3 = new Web3(window.ethereum);
 
@@ -40,7 +40,9 @@ export const unstakehotel = async (tokenid) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
+  const balance = await metahouse.methods
+    .balanceOf(window.ethereum.selectedAddress)
+    .call();
   return web3.utils.fromWei(balance);
 };
 
