@@ -2,8 +2,8 @@ import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
 import nftabi from "./abis/nft.json";
 
-export const nftaddress = "0x1C95Cd47C02d487C665EcCb3F6a0CB0323da9aa4";
-const metahouseaddress = "0xAACBdF62b2477fC3caCf44f975c118578F89FD4C";
+export const nftaddress = "0xE92C980669dBb127b64094bB321CBfc0789d5Bb6";
+const metahouseaddress = "0x74cc619E0f851A28f6FBe183403dcb0d7661A879";
 
 const web3 = new Web3(window.ethereum);
 
@@ -54,4 +54,8 @@ export const rewardcalculator = async (tokenid) => {
 
   const reward = await metahouse.methods.rewardcalculatorhotel(tokenid).call();
   return web3.utils.fromWei(reward);
+};
+
+export const stakeid = async (address) => {
+  return await metahouse.methods.ids(address).call();
 };
