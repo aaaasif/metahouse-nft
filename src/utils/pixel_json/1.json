@@ -1,0 +1,16 @@
+{
+  "name": "Pixel MetaHouse #1",
+  "description": "Yellow Wood house with Yellow Triangular Roof  White Metal Door Purple Rounded Windows and Purple Brick Garage with Green Garage Roof and Green Garage Shutter and without car",
+  "image": "https://gateway.pinata.cloud/ipfs/QmYgWjYYjM6UUJdGNpDbTmfU8PWh5J7Ew9PutCETFqZ69G/1.gif",
+  "attributes": [
+    { "trait_type": "Car", "value": "without car " },
+    { "trait_type": "House Roof", "value": "Yellow Triangular Roof  " },
+    { "trait_type": "Windows", "value": "Purple Rounded Windows " },
+    { "trait_type": "Door", "value": "White Metal Door " },
+    { "trait_type": "House", "value": "Yellow Wood house " },
+    { "trait_type": "GarageRoof", "value": "Green Garage Roof " },
+    { "trait_type": "Garage Shutter", "value": "Green Garage Shutter " },
+    { "trait_type": "Garage", "value": "Purple Brick Garage " },
+    { "trait_type": "Backgrounds", "value": "Mountain Background " }
+  ]
+}

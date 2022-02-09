@@ -11,7 +11,9 @@ export const getUserNfts = async (address: string) => {
     const data = await res.json();
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(`${token_uri}/${Number(d.token_id) + 1}.json`);
+        const res_token_uri = await fetch(
+          `${token_uri}/${Number(d.token_id) + 1}.json`
+        );
         const res = await res_token_uri.json();
         return {
           token_id: d.token_id,
@@ -30,7 +32,7 @@ export const fetchUserStakedNfts = async (data: any[]) => {
   try {
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(`${token_uri}/${d}.json`);
+        const res_token_uri = await fetch(`${token_uri}/${Number(d) + 1}.json`);
         const res = await res_token_uri.json();
         return {
           token_id: d,

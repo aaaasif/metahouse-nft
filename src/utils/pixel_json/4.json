@@ -1,0 +1,16 @@
+{
+  "name": "Pixel MetaHouse #4",
+  "description": "Blue Wood House with Blue Triangular Roof Purple Wood Door Red Shutters and Yellow Brick Garage with Red Garage Roof and Red Garage Shutter and Red Car",
+  "image": "https://gateway.pinata.cloud/ipfs/QmYgWjYYjM6UUJdGNpDbTmfU8PWh5J7Ew9PutCETFqZ69G/4.gif",
+  "attributes": [
+    { "trait_type": "Car", "value": "Red Car " },
+    { "trait_type": "House Roof", "value": "Blue Triangular Roof " },
+    { "trait_type": "Windows", "value": "Red Shutters " },
+    { "trait_type": "Door", "value": "Purple Wood Door " },
+    { "trait_type": "House", "value": "Blue Wood House " },
+    { "trait_type": "GarageRoof", "value": "Red Garage Roof " },
+    { "trait_type": "Garage Shutter", "value": "Red Garage Shutter " },
+    { "trait_type": "Garage", "value": "Yellow Brick Garage " },
+    { "trait_type": "Backgrounds", "value": "Snow Background " }
+  ]
+}
