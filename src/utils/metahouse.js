@@ -40,10 +40,8 @@ export const unstakehotel = async (tokenid) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods
-    .balanceOf(window.ethereum.selectedAddress)
-    .call();
-  return balance;
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
+  return web3.utils.fromWei(balance);
 };
 
 export const rewardcalculator = async (tokenid) => {
