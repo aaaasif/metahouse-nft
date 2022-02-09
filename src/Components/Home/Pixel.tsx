@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { fetchUserStakedNfts, getUserNfts } from "../../utils/fetchUserNft";
-import { stakePixel, stakeIdPixel, unstakePixel } from "../../utils/metahouse";
+import { fetchUserStakedPixelNfts, getUserPixelNfts } from "../../utils/fetchUserNft";
+import { stakepixel, stakeidpixel, unstakepixel } from "../../utils/metahouse";
 
-const Pixel: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
+const Pixel: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolean }> = ({
+  handleConnect,
+  isConnecting,
+}) => {
   const { active, account } = useWeb3React();
   const [nftData, setNftData] = useState<any>(null);
   const [stakedData, setStakedData] = useState<any>(null);
@@ -13,9 +16,10 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   const handleGetNfts = useCallback(async () => {
     if (account) {
       setLoading(true);
-      const data = await getUserNfts(account);
-      const ids = await stakeIdPixel(account);
-      const sData = await fetchUserStakedNfts(ids);
+      const data = await getUserPixelNfts(account);
+      console.log(data);
+      const ids = await stakeidpixel(account);
+      const sData = await fetchUserStakedPixelNfts(ids);
       console.log(ids);
       setStakedData(sData);
       setNftData(data);
@@ -31,7 +35,7 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   const handleStake = async (tokenId: string) => {
     setLoading(true);
     try {
-      await stakePixel(tokenId);
+      await stakepixel(tokenId);
       setLoading(false);
       window.location.reload();
     } catch (error) {
@@ -42,7 +46,7 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   const handleUnstake = async (tokenId: string) => {
     setLoading(true);
     try {
-      await unstakePixel(tokenId);
+      await unstakepixel(tokenId);
       window.location.reload();
       setLoading(false);
     } catch (error) {
@@ -133,7 +137,7 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   return (
     <>
       {!active ? (
-        <button className="connect-wallet" onClick={() => handleConnect()}>
+        <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
           Connect Wallet
         </button>
       ) : (

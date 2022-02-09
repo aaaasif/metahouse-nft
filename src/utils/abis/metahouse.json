@@ -5,6 +5,11 @@
         "internalType": "contract IERC721",
         "name": "_tokenx",
         "type": "address"
+      },
+      {
+        "internalType": "contract IERC721",
+        "name": "_pixel",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -170,6 +175,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "tokenid",
+        "type": "uint256"
+      }
+    ],
+    "name": "stakepixel",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "recipient",
         "type": "address"
@@ -274,6 +292,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "unstakepixel",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "owner",
         "type": "address"
@@ -347,6 +378,25 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "idspixel",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "name",
     "outputs": [
@@ -378,6 +428,19 @@
     "outputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pixel",
+    "outputs": [
+      {
+        "internalType": "contract IERC721",
         "name": "",
         "type": "address"
       }
@@ -453,12 +516,47 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "rewardrate",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenid",
+        "type": "uint256"
+      }
+    ],
+    "name": "rewardcalculatorpixel",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "rewardpixel",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "firstepoch",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endepoch",
         "type": "uint256"
       }
     ],
@@ -540,7 +638,55 @@
         "type": "uint256"
       }
     ],
+    "name": "stakeidpixel",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "stakeindex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "stakeindexpixel",
     "outputs": [
       {
         "internalType": "uint256",
@@ -636,6 +782,25 @@
       }
     ],
     "name": "unclaimedbalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "unclaimedbalancepixel",
     "outputs": [
       {
         "internalType": "uint256",

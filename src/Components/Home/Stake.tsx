@@ -3,7 +3,10 @@ import { useWeb3React } from "@web3-react/core";
 import { fetchUserStakedNfts, getUserNfts } from "../../utils/fetchUserNft";
 import { stake, stakehotel, stakeid, unstake, unstakehotel } from "../../utils/metahouse";
 
-const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect }) => {
+const Stake: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolean }> = ({
+  handleConnect,
+  isConnecting,
+}) => {
   const { active, account } = useWeb3React();
   const [nftData, setNftData] = useState<any>(null);
   const [stakedData, setStakedData] = useState<any>(null);
@@ -145,7 +148,7 @@ const Stake: React.FC<{ handleConnect: () => Promise<void> }> = ({ handleConnect
   return (
     <>
       {!active ? (
-        <button className="connect-wallet" onClick={() => handleConnect()}>
+        <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
           Connect Wallet
         </button>
       ) : (

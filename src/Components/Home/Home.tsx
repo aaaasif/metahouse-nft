@@ -8,12 +8,16 @@ import Stake from "./Stake";
 const Home: React.FC = () => {
   const { activate } = useWeb3React();
   const [tab, setTab] = useState<"metahouse" | "pixel">("metahouse");
+  const [loading, setLoading] = useState(false);
 
   const handleConnect = async () => {
+    setLoading(true);
     try {
       await activate(Injected);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,9 +72,9 @@ const Home: React.FC = () => {
           </h6>
         </div>
         {tab === "metahouse" ? (
-          <Stake handleConnect={handleConnect} />
+          <Stake handleConnect={handleConnect} isConnecting={loading} />
         ) : (
-          <Pixel handleConnect={handleConnect} />
+          <Pixel handleConnect={handleConnect} isConnecting={loading} />
         )}
       </div>
     </div>

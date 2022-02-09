@@ -1,17 +1,17 @@
 import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
-import pixelabi from "./abis/pixel.json";
+// import pixelabi from "./abis/pixel.json";
 // import nftabi from "./abis/nft.json";
 
 export const chain = "0x4";
 export const nftaddress = "0x828cC55FF5f92e122001dE363fd418C5D20B65CB";
-const metahouseaddress = "0xCc710C6A4Bdf186b90FE09808a3A31d884b561B9";
 export const pixeladdress = "0xcc3ef5E58943a367547bAC40f7464390af100384";
+const metahouseaddress = "0x785ADF68603fb8c5ce63449920F755DD9Fc9605c";
 const web3 = new Web3(window.ethereum);
 
 // const nft = new web3.eth.Contract(nftabi, nftaddress);
 const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
-const pixelhouse = new web3.eth.Contract(pixelabi, pixeladdress);
+
 // 2501-2520 hotel
 
 const checkId = (tokenid) => {
@@ -24,8 +24,8 @@ export const stake = async (tokenid) => {
     from: window.ethereum.selectedAddress,
   });
 };
-export const stakePixel = async (tokenid) => {
-  await pixelhouse.methods.stake(tokenid).send({
+export const stakepixel = async (tokenid) => {
+  await metahouse.methods.stake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
@@ -40,8 +40,8 @@ export const unstake = async (tokenid) => {
     from: window.ethereum.selectedAddress,
   });
 };
-export const unstakePixel = async (tokenid) => {
-  await pixelhouse.methods.unstake(tokenid).send({
+export const unstakepixel = async (tokenid) => {
+  await metahouse.methods.unstake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
@@ -69,9 +69,8 @@ export const rewardcalculator = async (tokenid) => {
 export const stakeid = async (address) => {
   return await metahouse.methods.ids(address).call();
 };
-export const stakeIdPixel = async (address) => {
-  console.log(pixelhouse.methods);
-  return await pixelhouse.methods.idspixel(address).call();
+export const stakeidpixel = async (address) => {
+  return await metahouse.methods.idspixel(address).call();
 };
 export const getIsStakedTokenId = async (tokenId) => {
   return await metahouse.methods.stakecheck(tokenId).call();

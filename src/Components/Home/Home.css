@@ -85,6 +85,7 @@
   transition: 300ms all linear;
   border-radius: 10px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .nft_image img {
