@@ -1,6 +1,6 @@
 import { nftaddress } from "./metahouse";
 
-const BASEURL = "http://localhost:5000";
+const BASEURL = "https://metahouse-backend.herokuapp.com";
 
 const token_uri =
   "https://gateway.pinata.cloud/ipfs/QmVJF9F5BHrfCH35xwxQVVCbMZ5to4gkuhEWGBYtNMAMBt";
