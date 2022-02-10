@@ -36,12 +36,12 @@ export const stakehotel = async (tokenid) => {
 };
 
 export const unstake = async (tokenid) => {
-  await metahouse.methods.unstakepixel(tokenid).send({
+  await metahouse.methods.unstake(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
 export const unstakepixel = async (tokenid) => {
-  await metahouse.methods.unstake(tokenid).send({
+  await metahouse.methods.unstakepixel(tokenid).send({
     from: window.ethereum.selectedAddress,
   });
 };
