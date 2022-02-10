@@ -68,24 +68,37 @@ export const unstakehotel = async (tokenid) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods
-    .balanceOf(window.ethereum.selectedAddress)
-    .call();
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
+
+  return web3.utils.fromWei(balance);
 };
 
-export const rewardcalculator = async (tokenid) => {
-  if (checkId(tokenid)) {
-    const reward = await metahouse.methods.rewardcalculator(tokenid).call();
-    return web3.utils.fromWei(reward);
-  }
+export const rewardcalculator = async (tokenId) => {
+  const rewards = await Promise.all(
+    tokenId.map(async (id) => {
+      if (checkId(id.token_id)) {
+        const reward = await metahouse.methods.rewardcalculator(id.token_id).call();
+        return web3.utils.fromWei(reward);
+      }
 
-  const reward = await metahouse.methods.rewardcalculatorhotel(tokenid).call();
-  return web3.utils.fromWei(reward);
+      const reward = await metahouse.methods.rewardcalculatorhotel(id.token_id).call();
+      return web3.utils.fromWei(reward);
+    })
+  );
+
+  return rewards.reduce((acc, d) => d + acc, 0);
 };
-export const rewardcalculatorpixel = async (tokenid) => {
-  const reward = await metahouse.methods.rewardcalculatorpixel(tokenid).call();
-  return web3.utils.fromWei(reward);
+
+export const rewardcalculatorpixel = async (tokenId) => {
+  const rewards = await Promise.all(
+    tokenId.map(async (id) => {
+      const reward = await metahouse.methods.rewardcalculatorpixel(id.token_id).call();
+      return web3.utils.fromWei(reward);
+    })
+  );
+  return rewards.reduce((acc, d) => d + acc, 0);
 };
+
 export const stakeid = async (address) => {
   return await metahouse.methods.ids(address).call();
 };

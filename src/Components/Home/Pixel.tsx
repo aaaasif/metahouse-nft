@@ -1,7 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { fetchUserStakedPixelNfts, getUserPixelNfts } from "../../utils/fetchUserNft";
-import { stakepixel, stakeidpixel, unstakepixel } from "../../utils/metahouse";
+import {
+  stakepixel,
+  stakeidpixel,
+  unstakepixel,
+  approvepixel,
+  approvepixelbool,
+  rewardcalculatorpixel,
+} from "../../utils/metahouse";
 
 const Pixel: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolean }> = ({
   handleConnect,
@@ -12,10 +19,13 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
   const [stakedData, setStakedData] = useState<any>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [reward, setReward] = useState(0);
 
   const handleGetNfts = useCallback(async () => {
     if (account) {
       setLoading(true);
+      setIsApproved(await approvepixelbool());
       const data = await getUserPixelNfts(account);
       console.log(data);
       const ids = await stakeidpixel(account);
@@ -24,6 +34,10 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
       setStakedData(sData);
       setNftData(data);
       console.log(data);
+
+      if (sData?.length) {
+        setReward(await rewardcalculatorpixel(sData));
+      }
       setLoading(false);
     }
   }, [account]);
@@ -51,6 +65,17 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
       setLoading(false);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleApprove = async () => {
+    setLoading(true);
+    try {
+      await approvepixel(account);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -134,16 +159,34 @@ const Pixel: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
     </>
   );
 
+  if (!active) {
+    return (
+      <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
+        Connect Wallet
+      </button>
+    );
+  }
+
   return (
     <>
-      {!active ? (
-        <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
-          Connect Wallet
+      {!isApproved ? (
+        <button className="connect-wallet" disabled={loading} onClick={() => handleApprove()}>
+          Approve
         </button>
       ) : (
         <div>
           <div style={{ marginBottom: 30 }}>{renderStake}</div>
-          <div>{renderUnstake}</div>
+          <div style={{ marginBottom: 30 }}>{renderUnstake}</div>
+          <div>
+            {stakedData?.length > 0 && (
+              <div>
+                <h4>Rewards</h4>
+                <p>
+                  <b>{reward}</b>
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>

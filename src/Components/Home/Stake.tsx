@@ -1,7 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { fetchUserStakedNfts, getUserNfts } from "../../utils/fetchUserNft";
-import { stake, stakehotel, stakeid, unstake, unstakehotel } from "../../utils/metahouse";
+import {
+  stake,
+  stakehotel,
+  stakeid,
+  unstake,
+  unstakehotel,
+  approvemetabool,
+  approvemeta,
+  rewardcalculator,
+} from "../../utils/metahouse";
 
 const Stake: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolean }> = ({
   handleConnect,
@@ -12,10 +21,13 @@ const Stake: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
   const [stakedData, setStakedData] = useState<any>(null);
   const [tokenId, setTokenId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [reward, setReward] = useState(0);
 
   const handleGetNfts = useCallback(async () => {
     if (account) {
       setLoading(true);
+      setIsApproved(await approvemetabool());
       const data = await getUserNfts(account);
       const ids = await stakeid(account);
       const sData = await fetchUserStakedNfts(ids);
@@ -23,6 +35,9 @@ const Stake: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
       setStakedData(sData);
       setNftData(data);
       console.log(data);
+      if (sData?.length) {
+        setReward(await rewardcalculator(sData));
+      }
       setLoading(false);
     }
   }, [account]);
@@ -62,6 +77,18 @@ const Stake: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const handleApprove = async () => {
+    setLoading(true);
+    try {
+      await approvemeta(account);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -145,16 +172,34 @@ const Stake: React.FC<{ handleConnect: () => Promise<void>; isConnecting: boolea
     </>
   );
 
+  if (!active) {
+    return (
+      <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
+        Connect Wallet
+      </button>
+    );
+  }
+
   return (
     <>
-      {!active ? (
-        <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
-          Connect Wallet
+      {!isApproved ? (
+        <button className="connect-wallet" disabled={loading} onClick={() => handleApprove()}>
+          Approve
         </button>
       ) : (
         <div>
           <div style={{ marginBottom: 30 }}>{renderStake}</div>
-          <div>{renderUnstake}</div>
+          <div style={{ marginBottom: 30 }}>{renderUnstake}</div>
+          <div>
+            {stakedData?.length > 0 && (
+              <div>
+                <h4>Rewards</h4>
+                <p>
+                  <b>{reward}</b>
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>
