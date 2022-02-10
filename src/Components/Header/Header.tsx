@@ -69,12 +69,18 @@ const Header: React.FC = () => {
               </Nav.Link>
               <button className="header-button">{balance} MH</button>
               {!active ? (
-                <button className="header-button" onClick={() => handleConnect()}>
+                <button
+                  className="header-button"
+                  onClick={() => handleConnect()}
+                >
                   Connect Wallet
                 </button>
               ) : (
                 <button className="header-button">
-                  {account && `${account.slice(0, 6)}...${account.slice(account.length - 6)}`}
+                  {account &&
+                    `${account.slice(0, 6)}...${account.slice(
+                      account.length - 6
+                    )}`}
                 </button>
               )}
             </Nav>

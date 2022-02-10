@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
-// import pixelabi from "./abis/pixel.json";
-// import nftabi from "./abis/nft.json";
+import pixelabi from "./abis/pixel.json";
+import nftabi from "./abis/nft.json";
 
 export const chain = "0x4";
 export const nftaddress = "0x828cC55FF5f92e122001dE363fd418C5D20B65CB";
@@ -9,9 +9,9 @@ export const pixeladdress = "0xcc3ef5E58943a367547bAC40f7464390af100384";
 const metahouseaddress = "0x785ADF68603fb8c5ce63449920F755DD9Fc9605c";
 const web3 = new Web3(window.ethereum);
 
-// const nft = new web3.eth.Contract(nftabi, nftaddress);
+const metanft = new web3.eth.Contract(nftabi, nftaddress);
 const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
-
+const pixelnft = new web3.eth.Contract(pixelabi, pixeladdress);
 // 2501-2520 hotel
 
 const checkId = (tokenid) => {
@@ -19,6 +19,22 @@ const checkId = (tokenid) => {
   return true;
 };
 
+export const approvemetabool = async (address) => {
+  return await metanft.methods.isApprovedForAll(address, metahouse);
+};
+export const approvepixelbool = async (address) => {
+  return await pixelnft.methods.isApprovedForAll(address, metahouse);
+};
+export const approvemeta = async (address) => {
+  return await metanft.methods.setApprovalForAll(metahouseaddress, true).send({
+    from: address,
+  });
+};
+export const approvepixel = async (address) => {
+  return await pixelnft.methods.setApprovalForAll(metahouseaddress, true).send({
+    from: address,
+  });
+};
 export const stake = async (tokenid) => {
   await metahouse.methods.stake(tokenid).send({
     from: window.ethereum.selectedAddress,
@@ -52,8 +68,9 @@ export const unstakehotel = async (tokenid) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
-  return web3.utils.fromWei(balance);
+  const balance = await metahouse.methods
+    .balanceOf(window.ethereum.selectedAddress)
+    .call();
 };
 
 export const rewardcalculator = async (tokenid) => {
@@ -65,7 +82,10 @@ export const rewardcalculator = async (tokenid) => {
   const reward = await metahouse.methods.rewardcalculatorhotel(tokenid).call();
   return web3.utils.fromWei(reward);
 };
-
+export const rewardcalculatorpixel = async (tokenid) => {
+  const reward = await metahouse.methods.rewardcalculatorpixel(tokenid).call();
+  return web3.utils.fromWei(reward);
+};
 export const stakeid = async (address) => {
   return await metahouse.methods.ids(address).call();
 };
