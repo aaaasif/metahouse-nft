@@ -10,11 +10,15 @@ const pixelTokenUri =
 
 export const getUserNfts = async (address: string) => {
   try {
-    const res = await fetch(`${BASEURL}/${address}?chain=${chain}&nftAddress=${nftaddress}`);
+    const res = await fetch(
+      `${BASEURL}/${address}?chain=${chain}&nftAddress=${nftaddress}`
+    );
     const data = await res.json();
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(`${token_uri}/${Number(d.token_id) + 1}.json`);
+        const res_token_uri = await fetch(
+          `${token_uri}/${Number(d.token_id)}.json`
+        );
         const res = await res_token_uri.json();
         return {
           token_id: d.token_id,
@@ -33,7 +37,7 @@ export const fetchUserStakedNfts = async (data: any[]) => {
   try {
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(`${token_uri}/${Number(d) + 1}.json`);
+        const res_token_uri = await fetch(`${token_uri}/${Number(d)}.json`);
         const res = await res_token_uri.json();
         return {
           token_id: d,
@@ -50,11 +54,15 @@ export const fetchUserStakedNfts = async (data: any[]) => {
 
 export const getUserPixelNfts = async (address: string) => {
   try {
-    const res = await fetch(`${BASEURL}/${address}?chain=${chain}&nftAddress=${pixeladdress}`);
+    const res = await fetch(
+      `${BASEURL}/${address}?chain=${chain}&nftAddress=${pixeladdress}`
+    );
     const data = await res.json();
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(`${pixelTokenUri}/${Number(d.token_id) + 1}.json`);
+        const res_token_uri = await fetch(
+          `${pixelTokenUri}/${Number(d.token_id) + 1}.json`
+        );
         const res = await res_token_uri.json();
         return {
           token_id: d.token_id,
@@ -73,7 +81,9 @@ export const fetchUserStakedPixelNfts = async (data: any[]) => {
   try {
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(`${pixelTokenUri}/${Number(d) + 1}.json`);
+        const res_token_uri = await fetch(
+          `${pixelTokenUri}/${Number(d) + 1}.json`
+        );
         const res = await res_token_uri.json();
         return {
           token_id: d,
