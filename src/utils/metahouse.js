@@ -14,10 +14,10 @@ const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
 const pixelnft = new web3.eth.Contract(pixelabi, pixeladdress);
 // 2501-2520 hotel
 
-const checkId = (tokenid) => {
-  if (Number(tokenid) >= 2501 && Number(tokenid) <= 2520) return false;
-  return true;
-};
+// const checkId = (tokenid) => {
+//   if (Number(tokenid) >= 2501 && Number(tokenid) <= 2520) return false;
+//   return true;
+// };
 
 export const approvemetabool = async (address) => {
   // console.log("bool", metanft.methods.isApprovedForAll(address, metahouse));
@@ -58,64 +58,27 @@ export const stakehotel = async (tokenid) => {
   });
 };
 
-export const unstake = async (tokenid) => {
-  await metahouse.methods.unstake(tokenid).send({
+export const unstake = async (tokenid, reward) => {
+  await metahouse.methods.unstake(tokenid, reward).send({
     from: window.ethereum.selectedAddress,
   });
 };
-export const unstakepixel = async (tokenid) => {
-  await metahouse.methods.unstakepixel(tokenid).send({
+export const unstakepixel = async (tokenid, reward) => {
+  await metahouse.methods.unstakepixel(tokenid, reward).send({
     from: window.ethereum.selectedAddress,
   });
 };
-export const unstakehotel = async (tokenid) => {
-  await metahouse.methods.unstake(tokenid).send({
+export const unstakehotel = async (tokenid, reward) => {
+  await metahouse.methods.unstake(tokenid, reward).send({
     from: window.ethereum.selectedAddress,
   });
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods
-    .balanceOf(window.ethereum.selectedAddress)
-    .call();
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
 
   return web3.utils.fromWei(balance);
 };
-
-// export const rewardcalculatormeta = async (tokenId) => {
-//   console.log("id", tokenId);
-//   // const re = await metahouse.methods.rewardcalculator("1").call();
-//   // console.log("re", re);
-//   const rewards = await Promise.all(
-//     tokenId.map(async (id) => {
-//       if (checkId(id.token_id)) {
-//         const reward = await metahouse.methods.rewardcalculator(1).call();
-//         console.log("id", id.token_id);
-//         console.log("rew", reward);
-//         return web3.utils.fromWei(reward);
-//       }
-
-//       const reward = await metahouse.methods
-//         .rewardcalculatorhotel(id.token_id)
-//         .call();
-//       return web3.utils.fromWei(reward);
-//     })
-//   );
-
-//   return rewards.reduce((acc, d) => d + acc, 0);
-// };
-
-// export const rewardcalculatorpixel = async (tokenId) => {
-//   const rewards = await Promise.all(
-//     tokenId.map(async (id) => {
-//       const reward = await metahouse.methods
-//         .rewardcalculatorpixel(id.token_id)
-//         .call();
-//       return web3.utils.fromWei(reward);
-//     })
-//   );
-//   return rewards.reduce((acc, d) => d + acc, 0);
-// };
 
 export const stakeid = async (address) => {
   return await metahouse.methods.ids(address).call();
@@ -137,13 +100,8 @@ export const rewardcalc = async (tokenid) => {
   console.log("res", res);
 };
 
-export const epoch = async () => {
-  const res = await metahouse.methods
-    .getEpoch("0x62562d3F2a512Dee20F13D7e43D0B4fC712CaA4A", "1")
-    .call();
-  console.log(res);
-};
+export const epoch = async (address, tokenId) => {
+  const res = await metahouse.methods.getEpoch(address, tokenId).call();
 
-export const days = async () => {
-  //endepoch-startepoch/86400
+  return Math.floor((res[1] - res[0]) / 86400);
 };
