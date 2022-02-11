@@ -1,7 +1,7 @@
 import { chain, nftaddress, pixeladdress } from "./metahouse";
 
-const BASEURL = "https://metahouse-backend.herokuapp.com";
-
+// const BASEURL = "https://metahouse-backend.herokuapp.com";
+const BASEURL = "http://localhost:5000";
 const token_uri =
   "https://gateway.pinata.cloud/ipfs/QmVJF9F5BHrfCH35xwxQVVCbMZ5to4gkuhEWGBYtNMAMBt";
 

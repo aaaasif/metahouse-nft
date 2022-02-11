@@ -9,7 +9,8 @@ import {
   unstakehotel,
   approvemetabool,
   approvemeta,
-  rewardcalc,
+  days,
+  epoch,
 } from "../../utils/metahouse";
 import { staked } from "../../utils/metahouse";
 
@@ -225,6 +226,7 @@ const Stake: React.FC<{
         <div>
           <div style={{ marginBottom: 30 }}>{renderStake}</div>
           <div style={{ marginBottom: 30 }}>{renderUnstake}</div>
+          <button onClick={() => epoch()}> Days</button>
           <div>
             {stakedData?.length > 0 && (
               <div>
@@ -232,7 +234,6 @@ const Stake: React.FC<{
                 <p>
                   <b>{reward}</b>
                 </p>
-                {/* <button onClick={() => days()}> Days</button> */}
               </div>
             )}
           </div>
