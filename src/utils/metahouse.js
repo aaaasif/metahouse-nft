@@ -2,6 +2,7 @@ import Web3 from "web3";
 import metahouseabi from "./abis/metahouse.json";
 import pixelabi from "./abis/pixel.json";
 import nftabi from "./abis/nft.json";
+import { hotelIds } from "./hotelIds";
 
 export const chain = "0x4";
 export const nftaddress = "0x60b5b87b4FA876d9b1277cc76C415f6C6e109eF7";
@@ -12,15 +13,13 @@ const web3 = new Web3(window.ethereum);
 const metanft = new web3.eth.Contract(nftabi, nftaddress);
 const metahouse = new web3.eth.Contract(metahouseabi, metahouseaddress);
 const pixelnft = new web3.eth.Contract(pixelabi, pixeladdress);
-// 2501-2520 hotel
 
-// const checkId = (tokenid) => {
-//   if (Number(tokenid) >= 2501 && Number(tokenid) <= 2520) return false;
-//   return true;
-// };
+export const checkId = (tokenid) => {
+  if (hotelIds.some((s) => s === tokenid)) return false;
+  return true;
+};
 
 export const approvemetabool = async (address) => {
-  // console.log("bool", metanft.methods.isApprovedForAll(address, metahouse));
   const value = await metanft.methods
     .isApprovedForAll(window.ethereum.selectedAddress, metahouseaddress)
     .call();
@@ -75,9 +74,7 @@ export const unstakehotel = async (tokenid, reward) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods
-    .balanceOf(window.ethereum.selectedAddress)
-    .call();
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
 
   return web3.utils.fromWei(balance);
 };

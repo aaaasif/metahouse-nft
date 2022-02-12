@@ -8,6 +8,7 @@ import {
   approvepixel,
   approvepixelbool,
   epoch,
+  checkId,
 } from "../../utils/metahouse";
 
 const Pixel: React.FC<{
@@ -48,7 +49,14 @@ const Pixel: React.FC<{
 
         setStakedData(newStakedData);
 
-        setReward(newStakedData.reduce((acc, s) => s.rewardsPending + acc, 0));
+        const hotelRewards = newStakedData
+          .filter((f) => checkId(f.token_id) === false)
+          .map((m) => m.rewardsPending * 1040);
+        const homeRewards = newStakedData
+          .filter((f) => checkId(f.token_id) === true)
+          .map((m) => m.rewardsPending * 104);
+        const totalRewards = [...hotelRewards, ...homeRewards];
+        setReward(totalRewards.reduce((acc, s) => s + acc, 0));
       }
       setLoading(false);
     }
@@ -196,7 +204,7 @@ const Pixel: React.FC<{
               <div>
                 <h4>Rewards</h4>
                 <p>
-                  <b>{reward * 10000}</b>
+                  <b>{reward}</b>
                 </p>
               </div>
             )}
