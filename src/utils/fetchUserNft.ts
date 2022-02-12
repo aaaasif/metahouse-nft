@@ -1,7 +1,8 @@
 import { chain, nftaddress, pixeladdress } from "./metahouse";
 
-// const BASEURL = "https://metahouse-backend.herokuapp.com";
 const BASEURL = "http://localhost:5000";
+// const BASEURL = "https://metahouse-backend.herokuapp.com";
+
 const token_uri =
   "https://gateway.pinata.cloud/ipfs/QmVJF9F5BHrfCH35xwxQVVCbMZ5to4gkuhEWGBYtNMAMBt";
 
@@ -39,6 +40,7 @@ export const fetchUserStakedNfts = async (data: any[]) => {
       data.map(async (d) => {
         const res_token_uri = await fetch(`${token_uri}/${Number(d)}.json`);
         const res = await res_token_uri.json();
+
         return {
           token_id: d,
           image: res.image,

@@ -9,10 +9,8 @@ import {
   unstakehotel,
   approvemetabool,
   approvemeta,
-  days,
   epoch,
 } from "../../utils/metahouse";
-import { staked } from "../../utils/metahouse";
 
 const Stake: React.FC<{
   handleConnect: () => Promise<void>;
@@ -35,12 +33,22 @@ const Stake: React.FC<{
       const ids = await stakeid(account);
       const sData = await fetchUserStakedNfts(ids);
       console.log(ids);
-      setStakedData(sData);
       setNftData(data);
       console.log(data);
       if (sData?.length) {
-        console.log("sdata", sData);
-        // setReward(await rewardcalculatormeta(sData));
+        const newStakedData = await Promise.all(
+          sData.map(async (s) => {
+            const rewradEpoch = await epoch(account, s.token_id);
+            return {
+              ...s,
+              rewardsPending: rewradEpoch,
+            };
+          })
+        );
+
+        setStakedData(newStakedData);
+
+        setReward(newStakedData.reduce((acc, s) => s.rewardsPending + acc, 0));
       }
       setLoading(false);
     }
@@ -70,13 +78,15 @@ const Stake: React.FC<{
   const handleUnstake = async (tokenId: string) => {
     setLoading(true);
     try {
+      const d = stakedData.find((s) => s.token_id === tokenId);
+
       if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
-        await unstakehotel(tokenId);
+        await unstakehotel(tokenId, d.rewardsPending);
         setLoading(false);
         window.location.reload();
         return;
       }
-      await unstake(tokenId);
+      await unstake(tokenId, d.rewardsPending);
       window.location.reload();
       setLoading(false);
     } catch (error) {
@@ -90,6 +100,7 @@ const Stake: React.FC<{
     try {
       await approvemeta(account);
       setLoading(false);
+      window.location.reload();
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -226,13 +237,13 @@ const Stake: React.FC<{
         <div>
           <div style={{ marginBottom: 30 }}>{renderStake}</div>
           <div style={{ marginBottom: 30 }}>{renderUnstake}</div>
-          <button onClick={() => epoch()}> Days</button>
+          {/* <button onClick={() => epoch()}> Days</button> */}
           <div>
             {stakedData?.length > 0 && (
               <div>
                 <h4>Rewards</h4>
                 <p>
-                  <b>{reward}</b>
+                  <b>{reward * 10000}</b>
                 </p>
               </div>
             )}
