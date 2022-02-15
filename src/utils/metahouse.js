@@ -5,9 +5,9 @@ import nftabi from "./abis/nft.json";
 import { hotelIds } from "./hotelIds";
 
 export const chain = "0x4";
-export const nftaddress = "0x60b5b87b4FA876d9b1277cc76C415f6C6e109eF7";
-export const pixeladdress = "0x92f391277C2C264a5Cef4afA0013F569187B2CdB";
-const metahouseaddress = "0x21299FDA4b6970ba43c9DD825938298F837D25e8";
+export const nftaddress = "0x9F84d4b1Da783E70253ef0081e30563f09aa8751";
+export const pixeladdress = "0x44d69a1045DD44C1ae3a2B7AfF39d39B1d6751cD";
+const metahouseaddress = "0x094a3125E30deF14C609FBd641896b1F837909C1";
 const web3 = new Web3(window.ethereum);
 
 const metanft = new web3.eth.Contract(nftabi, nftaddress);
@@ -74,7 +74,9 @@ export const unstakehotel = async (tokenid, reward) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
+  const balance = await metahouse.methods
+    .balanceOf(window.ethereum.selectedAddress)
+    .call();
 
   return web3.utils.fromWei(balance);
 };
