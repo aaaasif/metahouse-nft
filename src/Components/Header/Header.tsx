@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import { Injected } from "../../utils/connector";
 import { getBalance } from "../../utils/metahouse";
 import "./Header.css";
@@ -31,7 +33,7 @@ const Header: React.FC = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <div className="justify-content-md-between">
-          <Navbar.Brand href="home" className="d-flex flex-row justify-content-between ">
+          <Navbar.Brand href="/" className="d-flex flex-row justify-content-between ">
             <div className="p-2">
               <img
                 src="https://i.ibb.co/jws8b4y/house-1.png"
@@ -51,13 +53,13 @@ const Header: React.FC = () => {
         <div>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link className=" header-text d-flex align-items-center" href="storyline">
-                Story Line
-              </Nav.Link>
-              <Nav.Link className=" header-text d-flex align-items-center" href="whitepaper">
+            <Nav className="me-auto flex_center ">
+              <Link className="header_link" to="/storyline">
+                Storyline
+              </Link>
+              <Link className="header_link" to="/whitepaper">
                 Whitepaper
-              </Nav.Link>
+              </Link>
               <button className="header-button">{balance ?? 0} MH</button>
               {!active ? (
                 <button className="header-button" onClick={() => handleConnect()}>
