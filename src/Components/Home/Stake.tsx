@@ -67,7 +67,7 @@ const Stake: React.FC<{
   const handleStake = async (tokenId: string) => {
     setLoading(true);
     try {
-      if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
+      if (checkId(tokenId)) {
         await stakehotel(tokenId);
         setLoading(false);
         window.location.reload();
@@ -86,7 +86,7 @@ const Stake: React.FC<{
     try {
       const d = stakedData.find((s) => s.token_id === tokenId);
 
-      if (Number(tokenId) >= 2501 && Number(tokenId) <= 2520) {
+      if (!checkId(tokenId)) {
         await unstakehotel(tokenId, d.rewardsPending);
         setLoading(false);
         window.location.reload();
