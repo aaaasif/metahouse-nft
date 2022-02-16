@@ -22,8 +22,8 @@ const StoryLine: React.FC = () => {
       />
       <p className="d-flex justify-content-start">
         1. Somewhere in a busy city in the world of entrepreneurs. <br />
-        2. The high abundance of $MH in the city attracts investors to the city. <br />
-        3. the investors need a house to rent , there weren't many houses in the market that time,
+        2.The high abundance of $MH in the city attracts investors to the city. <br />
+        3. The investors need a house to rent , there weren't many houses in the market that time,
         very low supply of houses ! <br />
         4. so the early investors in the city wanted to take advantage on that and rented out their
         houses for 10,000 $MH coin a day ! <br />

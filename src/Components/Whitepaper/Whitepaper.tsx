@@ -123,20 +123,22 @@ const Whitepaper: React.FC = () => {
             <p>
               Sister games will offer benefits to trophy bucket holders and some benefits from the
               mints will be directly contributed to the DAO. These exact percentages will be decided
-              on a project-by-project basis.
+              on separately for each individual project.
             </p>
             <p>
-              The benefit that MetaHouseDao offers fellow creators is an already established
+              The benefit that MetaHouse Dao offers fellow creators is an already established
               community, partial funding by the DAO (if decided by our community), and connections
-              to experts in each aspect of the development journey.
+              to experts in each aspect of the development journey including real estate.
             </p>
             <p>
-              Projects will be able to pitch their ideas directly to the DAO and the community will
-              be able to decide which projects to support and how that support is granted.
+              Sister games will offer benefits to trophy bucket holders and some benefits from the
+              mints will be directly contributed to the DAO. These exact percentages will be decided
+              on separately for each individual project.
             </p>
             <p>
               This isn't a financial advice , this white paper explains about future plans and not
-              on existing utilities. Metahouse will not garrunte any thing until it happens
+              on existing utilities. Metahouse will not guarantee any of these until we're able to
+              bring them to fruition .
             </p>
           </div>
         </div>
