@@ -23,16 +23,16 @@ const Home: React.FC = () => {
 
   return (
     <div className="form-bg">
-      <div className="bg-tran">
+      {/* <div className="bg-tran">
         <h4 className="text-uppercase text-white">APY</h4>
-        <h5>10000%</h5>
-        {/* <div className="stGen">
+        <h5>10000%</h5> */}
+      {/* <div className="stGen">
           <div className="d-flex justify-content-center align-items-center">
             <button className="my-btn"></button>
             <input className="my-input" placeholder="1st Gen" type="text" />
           </div>
         </div> */}
-        {/* <br />
+      {/* <br />
         <span>1000/1000 Minted</span>
         <div>
           <button onClick={decrease} className="my-color increment">
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
         <span>
           
         </span> */}
-      </div>
+      {/* </div> */}
       <div className="bg-tran mt-4">
         <h4 className="text-uppercase  text-white">play genx</h4>
         <br />
