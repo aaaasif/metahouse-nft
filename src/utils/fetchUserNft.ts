@@ -4,10 +4,10 @@ const BASEURL = "https://metahouse-server.herokuapp.com";
 // const BASEURL = "https://metahouse-backend.herokuapp.com";
 
 const token_uri =
-  "https://gateway.pinata.cloud/ipfs/QmVJF9F5BHrfCH35xwxQVVCbMZ5to4gkuhEWGBYtNMAMBt";
+  "https://gateway.pinata.cloud/ipfs/QmPWM7g6hhMYx2tWEekF44HXR45SkF6iarA88t5eHFL8pf";
 
 const pixelTokenUri =
-  "https://gateway.pinata.cloud/ipfs/QmQb89rUhE8juvzFnZKPW1SzaNJdetqLnh5GWaxPh9mCS7";
+  "https://gateway.pinata.cloud/ipfs/QmVuG9TcDJPfjPqXqCn8pbcaPnU3v1wynX8pu7pzYRjGf7";
 
 export const getUserNfts = async (address: string) => {
   try {

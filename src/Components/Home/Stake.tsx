@@ -67,7 +67,7 @@ const Stake: React.FC<{
   const handleStake = async (tokenId: string) => {
     setLoading(true);
     try {
-      if (checkId(tokenId)) {
+      if (!checkId(tokenId)) {
         await stakehotel(tokenId);
         setLoading(false);
         window.location.reload();
@@ -131,9 +131,21 @@ const Stake: React.FC<{
                   <div
                     key={index}
                     onClick={() => setTokenId(nft.token_id)}
-                    className={tokenId === nft.token_id ? "nft_image active" : "nft_image"}
+                    className={
+                      tokenId === nft.token_id
+                        ? "nft_image active"
+                        : "nft_image"
+                    }
                   >
-                    <img src={nft.image} alt={nft.token_id} width={100} height={100} />
+                    <img
+                      src={nft.image}
+                      alt={nft.token_id}
+                      width={90}
+                      height={90}
+                    />
+                    <div>
+                      <h2 style={{ width: "20px" }}>{nft.token_id}</h2>
+                    </div>
                   </div>
                 );
               })}
@@ -145,7 +157,11 @@ const Stake: React.FC<{
         <button
           className="connect-wallet"
           disabled={loading || !stakedData?.length}
-          onClick={() => (!tokenId ? alert("select one nft to unstake") : handleUnstake(tokenId))}
+          onClick={() =>
+            !tokenId
+              ? alert("select one nft to unstake")
+              : handleUnstake(tokenId)
+          }
         >
           Unstake
         </button>
@@ -168,12 +184,28 @@ const Stake: React.FC<{
             <div className="card__wrapper">
               {nftData?.map((nft, index) => {
                 return (
-                  <div
-                    key={index}
-                    onClick={() => setTokenId(nft.token_id)}
-                    className={tokenId === nft.token_id ? "nft_image active" : "nft_image"}
-                  >
-                    <img src={nft.image} alt={nft.token_id} width={100} height={100} />
+                  <div>
+                    <div
+                      key={index}
+                      onClick={() => setTokenId(nft.token_id)}
+                      className={
+                        tokenId === nft.token_id
+                          ? "nft_image active"
+                          : "nft_image"
+                      }
+                    >
+                      <img
+                        src={nft.image}
+                        alt={nft.token_id}
+                        width={10}
+                        height={10}
+                      />
+                    </div>
+                    <div
+                      style={{ width: "20px", height: "20px", padding: "2em" }}
+                    >
+                      <h2>#{nft.token_id}</h2>
+                    </div>
                   </div>
                 );
               })}
@@ -185,7 +217,9 @@ const Stake: React.FC<{
         <button
           className="connect-wallet"
           disabled={loading || !nftData?.length}
-          onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
+          onClick={() =>
+            !tokenId ? alert("select one nft to stake") : handleStake(tokenId)
+          }
         >
           Stake
         </button>
@@ -195,7 +229,11 @@ const Stake: React.FC<{
 
   if (!active) {
     return (
-      <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
+      <button
+        className="connect-wallet"
+        disabled={isConnecting}
+        onClick={() => handleConnect()}
+      >
         Connect Wallet
       </button>
     );
@@ -204,7 +242,11 @@ const Stake: React.FC<{
   return (
     <>
       {!isApproved ? (
-        <button className="connect-wallet" disabled={loading} onClick={() => handleApprove()}>
+        <button
+          className="connect-wallet"
+          disabled={loading}
+          onClick={() => handleApprove()}
+        >
           Approve
         </button>
       ) : (
