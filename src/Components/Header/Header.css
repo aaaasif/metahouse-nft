@@ -7,7 +7,26 @@
   height: 50px;
   box-sizing: border-box;
 }
+
 .header-text {
   font-weight: bolder;
   color: black;
+}
+
+.header_link {
+  font-weight: 500;
+  color: #232323;
+  text-decoration: none;
+  margin-right: 1em;
+  text-align: center;
+  height: fit-content;
+  transition: color 300ms linear;
+}
+
+.header_link:hover {
+  color: #000;
+}
+
+.flex_center {
+  align-items: center;
 }

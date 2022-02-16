@@ -7,14 +7,69 @@ p{
     margin: auto;
     
 }
+/* .first-table ::after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100px;
+    left: 50%;
+    height: 2px;
+    margin-top: 10px;
+    transform: translateX(-50%);
+    background-color: black;
+} */
+
 .table-title{
     margin-top: 100px;
-    margin-bottom: 40px;
-    color: #0A901B;
+    color: red;
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: 900;
+}
+
+ 
+
+.table-title2{
+    color: black;
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: 900;
+}
+.table-title2::after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100px;
+    left: 50%;
+    height: 2px;
+    margin-top: 10px;
+    transform: translateX(-50%);
+    background-color: black;
+  }
+.table-title3{
+    margin-top: 100px;
+    color: black;
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: bolder;
+}
+.table-title3::after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 150px;
+    left: 50%;
+    height: 3px;
+    margin-top: 10px;
+    transform: translateX(-50%);
+    background-color: black;
+  }
+.minting{
+    margin-bottom: 2px solid green;
 }
 .table-head{
     background-color: #8C30F5;
     
+}
+.middle-text{
+    width: 500px;
 }
 .sold{
     color: green;

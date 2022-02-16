@@ -21,21 +21,17 @@ const StoryLine: React.FC = () => {
         alt=""
       />
       <p className="d-flex justify-content-start">
-        1. On a prosperous grassland located in the deep meta-prairies, a tiny village of fisherman
-        gather together around a beautiful, deep river to fish $TROUT. <br />
-        2. The high abundance of $TROUT in the river attracts fishermen to the village. <br />
-        3. However, this is not without danger; this rich, bountiful river attracts not only
-        fishermen but animals of all sorts, including heinous bears! <br />
-        4. The bears are on the hunt to find all the fishermen and their precious delicious $TROUT!
-        They will acquire it by any means necessary! <br />
-        5. To counter these aggressive attacks, the fisherman have decided to start offering a small
-        portion of their composed $TROUT to the bears <br />
-        6. Although, when a fisherman aimlessly moves away from the river alone, or when a new
-        fisherman is born, the bears all lose control. <br />
-        7.The bears don’t hold back and there is no way to repress them!
+        1. Somewhere in a busy city in the world of entrepreneurs. <br />
+        2. The high abundance of $MH in the city attracts investors to the city. <br />
+        3. the investors need a house to rent , there weren't many houses in the market that time,
+        very low supply of houses ! <br />
+        4. so the early investors in the city wanted to take advantage on that and rented out their
+        houses for 10,000 $MH coin a day ! <br />
+        5. The new entrepreneurs of the city couldn't find any houses cheaper to rent and that's how
+        MetaHouse Realestate became an empire. <br />
       </p>
       <br />
-      <h1 className="storyline-header">TLDR</h1>
+      {/* <h1 className="storyline-header">TLDR</h1>
       <img
         className="border-img"
         src="https://i.ibb.co/zHyDtS3/floral-design-border-with-curls-1.png"
@@ -59,7 +55,7 @@ const StoryLine: React.FC = () => {
         . If a Fishermen is unstaked from the river, the Bears try to steal all of its accumulated
         $TROUT. <br />. When a new Fisherman is born, the Bears attempt to steal it. If they’re
         successful, it’s given to a randomly selected bear instead of the owner who minted it.
-      </p>
+      </p> */}
     </div>
   );
 };
