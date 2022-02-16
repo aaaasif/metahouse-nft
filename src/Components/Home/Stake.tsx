@@ -11,6 +11,7 @@ import {
   approvemeta,
   epoch,
   checkId,
+  getUserHotelStakedIds,
 } from "../../utils/metahouse";
 
 const Stake: React.FC<{
@@ -31,10 +32,9 @@ const Stake: React.FC<{
       setIsApproved(await approvemetabool());
       const data = await getUserNfts(account);
       const ids = await stakeid(account);
-      const sData = await fetchUserStakedNfts(ids);
-      console.log(ids);
+      const userStakedHotels = await getUserHotelStakedIds(account);
+      const sData = await fetchUserStakedNfts([...ids, ...userStakedHotels]);
       setNftData(data);
-      console.log(data);
       if (sData?.length) {
         const newStakedData = await Promise.all(
           sData.map(async (s) => {
@@ -131,18 +131,9 @@ const Stake: React.FC<{
                   <div
                     key={index}
                     onClick={() => setTokenId(nft.token_id)}
-                    className={
-                      tokenId === nft.token_id
-                        ? "nft_image active"
-                        : "nft_image"
-                    }
+                    className={tokenId === nft.token_id ? "nft_image active" : "nft_image"}
                   >
-                    <img
-                      src={nft.image}
-                      alt={nft.token_id}
-                      width={100}
-                      height={100}
-                    />
+                    <img src={nft.image} alt={nft.token_id} width={100} height={100} />
                   </div>
                 );
               })}
@@ -154,11 +145,7 @@ const Stake: React.FC<{
         <button
           className="connect-wallet"
           disabled={loading || !stakedData?.length}
-          onClick={() =>
-            !tokenId
-              ? alert("select one nft to unstake")
-              : handleUnstake(tokenId)
-          }
+          onClick={() => (!tokenId ? alert("select one nft to unstake") : handleUnstake(tokenId))}
         >
           Unstake
         </button>
@@ -184,18 +171,9 @@ const Stake: React.FC<{
                   <div
                     key={index}
                     onClick={() => setTokenId(nft.token_id)}
-                    className={
-                      tokenId === nft.token_id
-                        ? "nft_image active"
-                        : "nft_image"
-                    }
+                    className={tokenId === nft.token_id ? "nft_image active" : "nft_image"}
                   >
-                    <img
-                      src={nft.image}
-                      alt={nft.token_id}
-                      width={100}
-                      height={100}
-                    />
+                    <img src={nft.image} alt={nft.token_id} width={100} height={100} />
                   </div>
                 );
               })}
@@ -207,9 +185,7 @@ const Stake: React.FC<{
         <button
           className="connect-wallet"
           disabled={loading || !nftData?.length}
-          onClick={() =>
-            !tokenId ? alert("select one nft to stake") : handleStake(tokenId)
-          }
+          onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
         >
           Stake
         </button>
@@ -219,11 +195,7 @@ const Stake: React.FC<{
 
   if (!active) {
     return (
-      <button
-        className="connect-wallet"
-        disabled={isConnecting}
-        onClick={() => handleConnect()}
-      >
+      <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
         Connect Wallet
       </button>
     );
@@ -232,11 +204,7 @@ const Stake: React.FC<{
   return (
     <>
       {!isApproved ? (
-        <button
-          className="connect-wallet"
-          disabled={loading}
-          onClick={() => handleApprove()}
-        >
+        <button className="connect-wallet" disabled={loading} onClick={() => handleApprove()}>
           Approve
         </button>
       ) : (

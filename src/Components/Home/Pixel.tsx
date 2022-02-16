@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import {
-  fetchUserStakedPixelNfts,
-  getUserPixelNfts,
-} from "../../utils/fetchUserNft";
+import { fetchUserStakedPixelNfts, getUserPixelNfts } from "../../utils/fetchUserNft";
 import {
   stakepixel,
   stakeidpixel,
@@ -12,6 +9,7 @@ import {
   approvepixelbool,
   epoch,
   checkId,
+  getUserHotelStakedIds,
 } from "../../utils/metahouse";
 
 const Pixel: React.FC<{
@@ -33,11 +31,10 @@ const Pixel: React.FC<{
       const data = await getUserPixelNfts(account);
       console.log(data);
       const ids = await stakeidpixel(account);
-      const sData = await fetchUserStakedPixelNfts(ids);
-      console.log(ids);
+      const userStakedHotels = await getUserHotelStakedIds(account);
+      const sData = await fetchUserStakedPixelNfts([...ids, ...userStakedHotels]);
       setStakedData(sData);
       setNftData(data);
-      console.log(data);
 
       if (sData?.length) {
         const newStakedData = await Promise.all(
@@ -122,18 +119,9 @@ const Pixel: React.FC<{
                   <div
                     key={index}
                     onClick={() => setTokenId(nft.token_id)}
-                    className={
-                      tokenId === nft.token_id
-                        ? "nft_image active"
-                        : "nft_image"
-                    }
+                    className={tokenId === nft.token_id ? "nft_image active" : "nft_image"}
                   >
-                    <img
-                      src={nft.image}
-                      alt={nft.token_id}
-                      width={100}
-                      height={100}
-                    />
+                    <img src={nft.image} alt={nft.token_id} width={100} height={100} />
                   </div>
                 );
               })}
@@ -145,11 +133,7 @@ const Pixel: React.FC<{
         <button
           className="connect-wallet"
           disabled={loading || !stakedData?.length}
-          onClick={() =>
-            !tokenId
-              ? alert("select one nft to unstake")
-              : handleUnstake(tokenId)
-          }
+          onClick={() => (!tokenId ? alert("select one nft to unstake") : handleUnstake(tokenId))}
         >
           Unstake
         </button>
@@ -175,18 +159,9 @@ const Pixel: React.FC<{
                   <div
                     key={index}
                     onClick={() => setTokenId(nft.token_id)}
-                    className={
-                      tokenId === nft.token_id
-                        ? "nft_image active"
-                        : "nft_image"
-                    }
+                    className={tokenId === nft.token_id ? "nft_image active" : "nft_image"}
                   >
-                    <img
-                      src={nft.image}
-                      alt={nft.token_id}
-                      width={100}
-                      height={100}
-                    />
+                    <img src={nft.image} alt={nft.token_id} width={100} height={100} />
                   </div>
                 );
               })}
@@ -198,9 +173,7 @@ const Pixel: React.FC<{
         <button
           className="connect-wallet"
           disabled={loading || !nftData?.length}
-          onClick={() =>
-            !tokenId ? alert("select one nft to stake") : handleStake(tokenId)
-          }
+          onClick={() => (!tokenId ? alert("select one nft to stake") : handleStake(tokenId))}
         >
           Stake
         </button>
@@ -210,11 +183,7 @@ const Pixel: React.FC<{
 
   if (!active) {
     return (
-      <button
-        className="connect-wallet"
-        disabled={isConnecting}
-        onClick={() => handleConnect()}
-      >
+      <button className="connect-wallet" disabled={isConnecting} onClick={() => handleConnect()}>
         Connect Wallet
       </button>
     );
@@ -223,11 +192,7 @@ const Pixel: React.FC<{
   return (
     <>
       {!isApproved ? (
-        <button
-          className="connect-wallet"
-          disabled={loading}
-          onClick={() => handleApprove()}
-        >
+        <button className="connect-wallet" disabled={loading} onClick={() => handleApprove()}>
           Approve
         </button>
       ) : (

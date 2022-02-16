@@ -74,9 +74,7 @@ export const unstakehotel = async (tokenid, reward) => {
 };
 
 export const getBalance = async () => {
-  const balance = await metahouse.methods
-    .balanceOf(window.ethereum.selectedAddress)
-    .call();
+  const balance = await metahouse.methods.balanceOf(window.ethereum.selectedAddress).call();
 
   return web3.utils.fromWei(balance);
 };
@@ -108,7 +106,29 @@ export const epoch = async (address, tokenId) => {
 
 export const firstepoch = async (address, tokenid) => {
   const res = await metahouse.methods.getEpoch(address, tokenid).call();
-  return res[0], tokenid;
+  return res[0];
+};
+
+export const getUserHotelStakedIds = async (address) => {
+  const hotelLists = await Promise.all(
+    hotelIds.map(async (id) => {
+      const data = await getIsStakedTokenId(id);
+      return { id, isStaked: data };
+    })
+  );
+
+  const isStakedHotel = hotelLists.filter((f) => f.isStaked === true);
+
+  const totalUserStakedHotel = await Promise.all(
+    isStakedHotel.map(async (hot) => {
+      const res = Number(await firstepoch(address, hot.id));
+      if (res <= 0) return null;
+      return hot.id;
+    })
+  );
+  console.log(totalUserStakedHotel.filter((f) => f !== null));
+  const tokenIds = totalUserStakedHotel.filter((f) => f !== null);
+  return tokenIds;
 };
 
 // Hotel id

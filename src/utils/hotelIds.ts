@@ -1,4 +1,5 @@
 export const hotelIds = [
+  "4",
   "303",
   "375",
   "421",
