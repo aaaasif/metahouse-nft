@@ -1,6 +1,6 @@
 import { chain, nftaddress, pixeladdress } from "./metahouse";
 
-const BASEURL = "http://44.197.227.215:5000";
+const BASEURL = "https://metahouse-server.herokuapp.com";
 // const BASEURL = "https://metahouse-backend.herokuapp.com";
 
 const token_uri =
