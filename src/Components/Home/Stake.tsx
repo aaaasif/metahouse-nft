@@ -238,17 +238,20 @@ const Stake: React.FC<{
       </button>
     );
   }
-
+  // const res = "ipfs://QmPWM7g6hhMYx2tWEekF44HXR45SkF6iarA88t5eHFL8pf/1.png";
+  // const res2 = res.replace("ipfs://", "ipfs/");
   return (
     <>
       {!isApproved ? (
-        <button
-          className="connect-wallet"
-          disabled={loading}
-          onClick={() => handleApprove()}
-        >
-          Approve
-        </button>
+        <>
+          <button
+            className="connect-wallet"
+            disabled={loading}
+            onClick={() => handleApprove()}
+          >
+            Approve
+          </button>
+        </>
       ) : (
         <div>
           <div style={{ marginBottom: 30 }}>{renderStake}</div>

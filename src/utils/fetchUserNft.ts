@@ -3,11 +3,9 @@ import { chain, nftaddress, pixeladdress } from "./metahouse";
 const BASEURL = "https://metahouse-server.herokuapp.com";
 // const BASEURL = "https://metahouse-backend.herokuapp.com";
 
-const token_uri =
-  "https://gateway.pinata.cloud/ipfs/QmPWM7g6hhMYx2tWEekF44HXR45SkF6iarA88t5eHFL8pf";
+const token_uri = "https://metahouseapi1.herokuapp.com/api/nft";
 
-const pixelTokenUri =
-  "https://gateway.pinata.cloud/ipfs/QmVuG9TcDJPfjPqXqCn8pbcaPnU3v1wynX8pu7pzYRjGf7";
+const pixelTokenUri = "https://pixelmetahouseapi2.herokuapp.com/api/nft";
 
 export const getUserNfts = async (address: string) => {
   try {
@@ -17,17 +15,17 @@ export const getUserNfts = async (address: string) => {
     const data = await res.json();
     const nftImages = await Promise.all(
       data.map(async (d) => {
-        const res_token_uri = await fetch(
-          `${token_uri}/${Number(d.token_id)}.json`
-        );
+        const res_token_uri = await fetch(`${token_uri}/${Number(d.token_id)}`);
         const res = await res_token_uri.json();
+        const image = await res.image;
+        const image2 = await image.replace("ipfs://", "ipfs/");
         return {
           token_id: d.token_id,
-          image: res.image,
+          image: `https://gateway.pinata.cloud/${image2}`,
         };
       })
     );
-
+    console.log(res);
     return nftImages;
   } catch (error) {
     console.log(error);
